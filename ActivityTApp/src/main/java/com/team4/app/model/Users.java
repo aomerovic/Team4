@@ -20,6 +20,12 @@ public class Users {
     @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "password")
+    private String password;
+
     @Column(name = "longitude")
     private Double longitude;
 
@@ -30,12 +36,30 @@ public class Users {
 
     }
 
-    public Users(String role, String firstName, String lastName, Double longitude, Double latitude) {
+    public Users(String role, String firstName, String lastName, String username, String password, Double longitude, Double latitude) {
         this.role = role;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.username = username;
+        this.password = password;
         this.longitude = longitude;
         this.latitude = latitude;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Long getId() {
