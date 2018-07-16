@@ -23,7 +23,7 @@ public class TestController {
     }
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public void test() {
-        Users user = new Users("ROLE_USER", "John", "Doe", 12.174219, 17.068659);
+        Users user = new Users("ROLE_USER", "John", "Doe", "johndoe", "password123", 12.174219, 17.068659);
         Hotels hotel = new Hotels("Test_Hotel", "No description", 7.162866, 18.260039);
         usersService.save(user);
         hotelsService.save(hotel);
