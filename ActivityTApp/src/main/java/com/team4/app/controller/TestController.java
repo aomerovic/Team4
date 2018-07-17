@@ -10,10 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import sun.misc.Request;
 
 @Controller
 public class TestController {
 
+    private Reservation reservation;
     private UserService usersService;
     private HotelService hotelsService;
     private ReservationService reservationsService;
@@ -30,9 +32,17 @@ public class TestController {
     public void test() {
         User user = new User("ROLE_USER", "John", "Doe", "johndoe", "password123", 12.174219, 17.068659);
         Hotel hotel = new Hotel("Test_Hotel", "No description", 7.162866, 18.260039);
-        Reservation reservation = new Reservation(user,hotel);
+        reservation = new Reservation(user,hotel);
         usersService.save(user);
         hotelsService.save(hotel);
         reservationsService.save(reservation);
+    }
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public void user() {
+        Double userLongitude = reservation.getUser().getLongitude();
+        Double userLatitude = reservation.getUser().getLatitude();
+        Double hotelLongitude = reservation.getHotel().getLongitude();
+        Double hotelLatitude = reservation.getHotel().getLatitude();
+
     }
 }
