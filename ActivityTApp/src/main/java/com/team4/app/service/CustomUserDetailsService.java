@@ -25,6 +25,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("No user with that username.");
+        }
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         for (String role : userRepository.findDistinctRole()) {
