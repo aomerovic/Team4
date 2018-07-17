@@ -68,6 +68,12 @@
             <scope>compile</scope>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.mapbox.mapboxsdk/mapbox-android-sdk -->
+        <dependency>
+            <groupId>com.mapbox.mapboxsdk</groupId>
+            <artifactId>mapbox-android-sdk</artifactId>
+            <version>0.2.3</version>
+        </dependency>
 
     </dependencies>
 
