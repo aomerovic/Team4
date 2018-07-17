@@ -1,17 +1,17 @@
 package com.team4.app.service;
 
-import com.team4.app.model.Users;
-import com.team4.app.repository.UsersRepository;
+import com.team4.app.model.User;
+import com.team4.app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UsersService {
+public class UserService {
 
     @Autowired
-    UsersRepository usersRepository;
+    UserRepository usersRepository;
 
-    public void save(Users users) {
+    public void save(User users) {
         usersRepository.save(users);
     }
 }
