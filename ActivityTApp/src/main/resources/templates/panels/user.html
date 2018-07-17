@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>User panel</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: aliceblue;
+        }
+
+        .topnav {
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        .topnav a {
+            float: right;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 34px 70px 30px;
+            text-decoration: none;
+            font-size: 20px;
+        }
+
+        .topnav a:hover {
+            background-color: #ddd;
+            color: black;
+            height: 30px;
+        }
+
+        .topnav a.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .topnav #name {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: #dddddd;
+            font-size: 30px;
+            float: left;
+            padding-left: 25px;
+        }
+
+        input[type=text], input[type=number] {
+            width: 90%;
+            padding: 15px;
+            margin: 5px 5px 22px 15px;
+            display: inline-block;
+            border: none;
+            background: #f1f1f1;
+        }
+        label {
+            margin-left: 15px;
+        }
+
+        input[type=text]:focus, input[type=number]:focus {
+            background-color: #ddd;
+            outline: none;
+
+        }
+
+        hr {
+            border: 1px solid #f1f1f1;
+            margin-bottom: 25px;
+        }
+
+        button {
+
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px ;
+            margin: 8px 325px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            opacity: 0.9;
+        }
+
+        button:hover {
+            opacity: 1;
+        }
+        .addbtn {
+            float: left;
+            width: 50%;
+        }
+        .hotelAdd {
+            width: 700px;
+        }
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div class="topnav">
+            <p id="name">Travel Activity Tracker</p>
+            <a href="#logout">Logout</a>
+        </div>
+        <div id='map' style='width: 1000px; height: 800px; padding-top: 10px; float: right;'></div>
+        <div id="hotelInfo" style='float: left'>
+
+            <form th:action="@{/save}" method="post" style="border:1px solid #ccc; margin-left: 50px; margin-top: 50px">
+                <div class="hotelAdd">
+                    <div th:if="${success}" class="alert alert-success" role="alert">
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                        <span class="sr-only">Error:</span>
+                        <p th:text="${success}"></p>
+                    </div>
+                    <hr>
+                    <label><b>Hotel name</b></label>
+                    </br>
+                    <input type="text" placeholder="Enter hotel name" name="hotel" required>
+                    </br>
+                    <label ><b>Description</b></label>
+                    </br>
+                    <input type="text" placeholder="Enter hotel description" name="description" required>
+                    </br>
+                    <label ><b>Longitude</b></label>
+                    <input type="text" placeholder="Insert longitude" name="longitude" required>
+                    <label><b>Latitude</b></label>
+                    <input type="text" placeholder="Insert latitude" name="latitude" required>
+                    <div class="clearfix">
+                        <button type="submit" class="addbtn">Add hotel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+            mapboxgl.accessToken = 'pk.eyJ1IjoiYW9tZXJvdmljIiwiYSI6ImNqanBnaG1oajA0ZjUzcHFkOGNsemF0YzAifQ.I4bEhIYDrJJCQE8QNAJCMA';
+            var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v10'
+            });
+            // var geojson = {
+            //     "type": "FeatureCollection",
+            //     "features": [
+            //         {
+            //             "type": "Feature",
+            //             "properties": {
+            //                 "message": "Foo",
+            //                 "iconSize": [60, 60]
+            //             },
+            //             "geometry": {
+            //                 "type": "Point",
+            //                 "coordinates": [
+            //                     -66.324462890625,
+            //                     -16.024695711685304
+            //                 ]
+            //             }
+            //         }
+            //         ]
+            // ];
+            // geojson.features.forEach(function(marker) {
+            //     // create a DOM element for the marker
+            //     var el = document.createElement('div');
+            //     el.className = 'marker';
+            //     el.style.backgroundImage = 'url(https://placekitten.com/g/' + marker.properties.iconSize.join('/') + '/)';
+            //     el.style.width = marker.properties.iconSize[0] + 'px';
+            //     el.style.height = marker.properties.iconSize[1] + 'px';
+            //
+            //     el.addEventListener('click', function() {
+            //         window.alert(marker.properties.message);
+            //     });
+            //
+            //     // add marker to map
+            //     new mapboxgl.Marker(el)
+            //         .setLngLat(marker.geometry.coordinates)
+            //         .addTo(map);
+            // });
+
+    </script>
+</body>
+
+</html>
