@@ -1,16 +1,16 @@
 package com.team4.app.service;
 
-import com.team4.app.model.Hotels;
-import com.team4.app.repository.HotelsRepository;
+import com.team4.app.model.Hotel;
+import com.team4.app.repository.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class HotelsService {
+public class HotelService {
     @Autowired
-    HotelsRepository hotelsRepository;
+    HotelRepository hotelsRepository;
 
-    public void save(Hotels hotels) {
+    public void save(Hotel hotels) {
         hotelsRepository.save(hotels);
     }
 }

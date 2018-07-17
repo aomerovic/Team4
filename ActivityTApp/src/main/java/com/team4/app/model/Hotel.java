@@ -3,7 +3,8 @@ package com.team4.app.model;
 import javax.persistence.*;
 
 @Entity
-public class Hotels {
+@Table(name = "hotels")
+public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "hotel_id")
@@ -21,11 +22,11 @@ public class Hotels {
     @Column(name = "latitude")
     private Double latitude;
 
-    public Hotels() {
+    public Hotel() {
 
     }
 
-    public Hotels(String hotelName, String hotelDescription, Double longitude, Double latitude) {
+    public Hotel(String hotelName, String hotelDescription, Double longitude, Double latitude) {
         this.hotelName = hotelName;
         this.hotelDescription = hotelDescription;
         this.longitude = longitude;

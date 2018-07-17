@@ -5,7 +5,8 @@ import org.hibernate.annotations.CollectionId;
 import javax.persistence.*;
 
 @Entity
-public class Users {
+@Table(name = "users")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
@@ -32,11 +33,11 @@ public class Users {
     @Column(name = "latitude")
     private Double latitude;
 
-    public Users() {
+    public User() {
 
     }
 
-    public Users(String role, String firstName, String lastName, String username, String password, Double longitude, Double latitude) {
+    public User(String role, String firstName, String lastName, String username, String password, Double longitude, Double latitude) {
         this.role = role;
         this.firstName = firstName;
         this.lastName = lastName;

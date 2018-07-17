@@ -3,7 +3,8 @@ package com.team4.app.model;
 import javax.persistence.*;
 
 @Entity
-public class Reservations {
+@Table(name = "reservations")
+public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "reservation_id")
@@ -11,17 +12,17 @@ public class Reservations {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
-    private Users user;
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "hotel_id", nullable = false)
-    private Hotels hotel;
+    private Hotel hotel;
 
-    public Reservations() {
+    public Reservation() {
 
     }
 
-    public Reservations(Users user, Hotels hotel) {
+    public Reservation(User user, Hotel hotel) {
         this.user = user;
         this.hotel = hotel;
     }
@@ -34,19 +35,19 @@ public class Reservations {
         this.reservationId = reservationId;
     }
 
-    public Users getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Users user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
-    public Hotels getHotel() {
+    public Hotel getHotel() {
         return hotel;
     }
 
-    public void setHotel(Hotels hotel) {
+    public void setHotel(Hotel hotel) {
         this.hotel = hotel;
     }
 }
