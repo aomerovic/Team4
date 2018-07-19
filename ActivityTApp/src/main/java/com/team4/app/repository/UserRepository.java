@@ -15,4 +15,5 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     @Query("SELECT DISTINCT u.role FROM User u")
     Set<String> findDistinctRole();
+
 }

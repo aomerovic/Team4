@@ -1,6 +1,7 @@
 package com.team4.app.service;
 
 import com.team4.app.model.Hotel;
+import com.team4.app.model.User;
 import com.team4.app.repository.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,4 +14,9 @@ public class HotelService {
     public void save(Hotel hotels) {
         hotelsRepository.save(hotels);
     }
+
+    public Iterable<Hotel> findAll() {
+        return hotelsRepository.findAll();
+    }
+
 }

@@ -39,4 +39,10 @@ public class TestController {
         hotelsService.save(hotel);
         reservationsService.save(reservation);
     }
+
+    @RequestMapping(value = "/test-admin", method = RequestMethod.GET)
+    public void testAdmin() {
+        User user = new User("ROLE_ADMIN", "Jimmy", "Shoe", "jimmy", bCryptPasswordEncoder.encode("password123"), 12.174219, 17.068659);
+        usersService.save(user);
+    }
 }
