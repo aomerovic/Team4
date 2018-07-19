@@ -9,7 +9,10 @@ import org.springframework.stereotype.Service;
 public class ReservationService {
     @Autowired
     ReservationRepository reservationsRepository;
-
+    public Iterable<Reservation> findAll()
+    {
+        return reservationsRepository.findAll();
+    }
     public void save(Reservation reservations) {
         reservationsRepository.save(reservations);
     }

@@ -50,4 +50,6 @@ public class Reservation {
     public void setHotel(Hotel hotel) {
         this.hotel = hotel;
     }
+
+
 }
