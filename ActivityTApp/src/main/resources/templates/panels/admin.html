@@ -196,7 +196,7 @@
             <div id="users-tab" class="container-fluid tab-pane active"><br>
                 <div class="row">
                     <div class="col-sm-5">
-                        <div>
+                        <div id="user-form-add">
                             <form class="user-form" th:action="@{/user/add}" method="post" th:object="${user}">
                                 <div class="user-form-div">
                                     <p>Add User</p>
@@ -221,9 +221,37 @@
                                 </div>
                             </form>
                         </div>
+                        <div id="user-form-edit" style="display: none;">
+                            <form class="user-form" th:action="@{/user/add}" method="post" th:object="${user}">
+                                <div class="user-form-div">
+                                    <p>Edit User</p>
+                                    <div class="alert alert-success div-msg" th:if="${success}" th:text="${success}"></div>
+                                    <div class="alert alert-danger div-msg" th:if="${error}" th:text="${error}"></div>
+                                    </br>
+                                    <input type="text" placeholder="First name" name="firstname" th:field="*{firstName}" required>
+                                    </br>
+                                    <input type="text" placeholder="Last name" name="lastname" th:field="*{lastName}"  required>
+                                    </br>
+                                    <input type="text" placeholder="Username" name="username" th:field="*{username}" required>
+                                    </br>
+                                    <input type="password" placeholder="Password" name="password" th:field="*{password}" required>
+                                    </br>
+                                    <input type="text" placeholder="Longitude" name="user-longitude" th:field="*{longitude}" required>
+                                    </br>
+                                    <input type="text" placeholder="Latitude" name="user-latitude" th:field="*{latitude}" required>
+                                    </br>
+                                    <div class="clearfix">
+                                        <input class="login-button" type="submit" value="Save" style="width: 43.9%">
+                                        <input class="login-button" type="button" value="Cancel" onclick="showUserForm();" style="background-color: #911818; width: 43.9%;">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                     <div class="col-sm-7">
                         <div class="user-table-div">
+                            <div class="alert alert-success div-msg" th:if="${successdelete}" th:text="${successdelete}" style="margin-bottom:  10px;margin-left:  0;margin-right: 0;"></div>
+                            <div class="alert alert-danger div-msg" th:if="${errordelete}" th:text="${errordelete}" style="margin-bottom:  10px;margin-left:  0;margin-right: 0;"></div>
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
@@ -245,8 +273,8 @@
                                         <td th:text="${user.getUsername()}">>bla</td>
                                         <td th:text="${user.getLongitude()}">>bla</td>
                                         <td th:text="${user.getLatitude()}">>bla</td>
-                                        <td class="text-center"><a href="#"><i class="fa fa-pencil"></i> Edit</a></td>
-                                        <td class="text-center"><a href="#"><i class="fa fa-remove"></i> Delete</a></td>
+                                        <td class="text-center"><button id="edit-user" class="btn btn-link" th:onclick="'switchVisible('+${user.getId()}+')'"><i class="fa fa-pencil"></i> Edit</button></td>
+                                        <td class="text-center"><a th:href="@{'/user/delete/' + ${user.getId()}}"><i class="fa fa-remove"></i> Delete</a></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -284,6 +312,8 @@
                     </div>
                     <div class="col-sm-7">
                         <div class="user-table-div">
+                            <div class="alert alert-success div-msg" th:if="${successdelete}" th:text="${successdelete}" style="margin-bottom:  10px;margin-left:  0;margin-right: 0;"></div>
+                            <div class="alert alert-danger div-msg" th:if="${errordelete}" th:text="${errordelete}" style="margin-bottom:  10px;margin-left:  0;margin-right: 0;"></div>
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
@@ -304,7 +334,7 @@
                                         <td th:text="${hotel.getLongitude()}">12.123</td>
                                         <td th:text="${hotel.getLatitude()}">22.123</td>
                                         <td class="text-center"><a href="#"><i class="fa fa-pencil"></i> Edit</a></td>
-                                        <td class="text-center"><a href="#"><i class="fa fa-remove"></i> Delete</a></td>
+                                        <td class="text-center"><a th:href="@{'/hotel/delete/' + ${hotel.getId()}}"><i class="fa fa-remove"></i> Delete</a></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -321,7 +351,36 @@
 
 
 
+<script>
+    function switchVisible(id) {
+        console.log("id is " + id);
+        if (document.getElementById('user-form-add')) {
 
+            if (document.getElementById('user-form-add').style.display == 'none') {
+                document.getElementById('user-form-add').style.display = 'block';
+                document.getElementById('user-form-edit').style.display = 'none';
+            }
+            else {
+                document.getElementById('user-form-add').style.display = 'none';
+                document.getElementById('user-form-edit').style.display = 'block';
+            }
+        }
+    }
+
+    function showUserForm() {
+        if (document.getElementById('user-form-edit')) {
+
+            if (document.getElementById('user-form-add').style.display == 'none') {
+                document.getElementById('user-form-add').style.display = 'block';
+                document.getElementById('user-form-edit').style.display = 'none';
+            }
+            else {
+                document.getElementById('user-form-add').style.display = 'none';
+                document.getElementById('user-form-edit').style.display = 'block';
+            }
+        }
+    }
+</script>
 </body>
 
 </html>

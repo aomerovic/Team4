@@ -1,8 +1,11 @@
 package com.team4.app.controller;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.team4.app.model.Hotel;
+import com.team4.app.model.Reservation;
 import com.team4.app.model.User;
 import com.team4.app.service.HotelService;
+import com.team4.app.service.ReservationService;
 import com.team4.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,26 +13,32 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.management.relation.RelationService;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class AdminController {
 
     private UserService userService;
     private HotelService hotelService;
+    private ReservationService reservationService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public AdminController(UserService userService,
                            HotelService hotelService,
+                           ReservationService reservationService,
                            BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userService = userService;
         this.hotelService = hotelService;
+        this.reservationService = reservationService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
@@ -78,6 +87,28 @@ public class AdminController {
         }
     }
 
+    @RequestMapping(value = "/user/delete/{id}", method = RequestMethod.GET)
+    public String deleteUser(@PathVariable("id") Long id, RedirectAttributes redirectAttributes){
+
+        if (userService.findById(id).isPresent()) {
+
+            User user = userService.findById(id).get();
+
+            List<Reservation> reservations = (List<Reservation>) reservationService.findByUser(user);
+            for (Reservation reservation : reservations) {
+                reservationService.delete(reservation);
+            }
+
+            userService.delete(user);
+            redirectAttributes.addFlashAttribute("successdelete", "User deleted!");
+        }
+        else {
+            redirectAttributes.addFlashAttribute("errordelete", "Something went wrong.");
+        }
+
+        return "redirect:/admin";
+    }
+
     @RequestMapping(value = "/hotel/add", method = RequestMethod.POST)
     public String addNewHotel(Model model, @Valid Hotel hotel, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
@@ -95,5 +126,27 @@ public class AdminController {
             redirectAttributes.addFlashAttribute("success", "Hotel added!");
             return "redirect:/admin";
         }
+    }
+
+    @RequestMapping(value = "/hotel/delete/{id}", method = RequestMethod.GET)
+    public String deleteHotel(@PathVariable("id") Long id, RedirectAttributes redirectAttributes){
+
+        if (hotelService.findById(id).isPresent()) {
+
+            Hotel hotel = hotelService.findById(id).get();
+
+            List<Reservation> reservations = (List<Reservation>) reservationService.findByHotel(hotel);
+            for (Reservation reservation : reservations) {
+                reservationService.delete(reservation);
+            }
+
+            hotelService.delete(hotel);
+            redirectAttributes.addFlashAttribute("successdelete", "Hotel deleted!");
+        }
+        else {
+            redirectAttributes.addFlashAttribute("errordelete", "Something went wrong.");
+        }
+
+        return "redirect:/admin";
     }
 }
