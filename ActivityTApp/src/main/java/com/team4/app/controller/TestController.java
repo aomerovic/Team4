@@ -32,7 +32,7 @@ public class TestController {
     public void test(Model model) {
 
         User user = new User("ROLE_USER", "John", "Doe", "johndoe", "password123", 13.546982, 17.123587);
-        Hotel hotel = new Hotel("Test_Hotel", "No description", 14.569825, 18.658951);
+        Hotel hotel = new Hotel("Test_Hotel", "No description", 20.564565, 18.658951);
         Reservation reservation = new Reservation(user,hotel);
         usersService.save(user);
         hotelsService.save(hotel);
