@@ -9,18 +9,19 @@ import com.team4.app.service.ReservationService;
 import com.team4.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.jws.WebParam;
 import javax.management.relation.RelationService;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -66,14 +67,14 @@ public class AdminController {
         model.addAttribute("hotel", new Hotel());
 
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("error", "Something went wrong.");
+            redirectAttributes.addFlashAttribute("errorUserDelete", "Something went wrong.");
             bindingResult.reject("Error");
             return "redirect:/admin";
 
         }
         else {
             if (userService.findByUsername(user.getUsername()) != null){
-                redirectAttributes.addFlashAttribute("error", "Invalid username!");
+                redirectAttributes.addFlashAttribute("errorUserDelete", "Invalid username!");
                 bindingResult.reject("Username exists");
                 return "redirect:/admin";
             }
@@ -81,14 +82,63 @@ public class AdminController {
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             userService.save(user);
 
-            redirectAttributes.addFlashAttribute("success", "User added!");
+            redirectAttributes.addFlashAttribute("successUserDelete", "User added!");
             return "redirect:/admin";
 
         }
     }
 
+    @RequestMapping(value = "/edit/user/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public User getUser(@PathVariable("id") Long id, Model model) {
+        User user;
+        if (userService.findById(id).isPresent()){
+            user = userService.findById(id).get();
+        }
+        else {
+            user = new User();
+        }
+
+        model.addAttribute("user", user);
+        return user;
+    }
+
+
+    @RequestMapping(value = "/user/edit", method = RequestMethod.POST)
+    public String editUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        Long id = user.getId();
+        User existingUser = userService.findById(id).get();
+        if (existingUser == null) {
+            redirectAttributes.addFlashAttribute("errorUserDelete", "Something went wrong.");
+            return "redirect:/admin";
+        }
+
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("errorUserDelete", "Something went wrong.");
+            bindingResult.reject("user");
+            return "redirect:/admin";
+        }
+        else {
+            existingUser.setFirstName(user.getFirstName());
+            existingUser.setLastName(user.getLastName());
+            existingUser.setUsername(user.getUsername());
+            existingUser.setLatitude(user.getLatitude());
+            existingUser.setLongitude(user.getLongitude());
+
+            if (user.getPassword() != null) {
+                existingUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+            }
+
+            userService.save(existingUser);
+
+            redirectAttributes.addFlashAttribute("successUserDelete", "User updated.");
+            return "redirect:/admin";
+        }
+
+    }
+
     @RequestMapping(value = "/user/delete/{id}", method = RequestMethod.GET)
-    public String deleteUser(@PathVariable("id") Long id, RedirectAttributes redirectAttributes){
+    public String deleteUser(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
 
         if (userService.findById(id).isPresent()) {
 
@@ -100,10 +150,9 @@ public class AdminController {
             }
 
             userService.delete(user);
-            redirectAttributes.addFlashAttribute("successdelete", "User deleted!");
-        }
-        else {
-            redirectAttributes.addFlashAttribute("errordelete", "Something went wrong.");
+            redirectAttributes.addFlashAttribute("successUserDelete", "User deleted!");
+        } else {
+            redirectAttributes.addFlashAttribute("errorUserDelete", "Something went wrong.");
         }
 
         return "redirect:/admin";
@@ -116,16 +165,60 @@ public class AdminController {
         model.addAttribute("hotel", new Hotel());
 
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("error", "Something went wrong.");
+            redirectAttributes.addFlashAttribute("errorHotelMsg", "Something went wrong.");
             bindingResult.reject("Error");
             return "redirect:/admin";
 
         }
         else {
             hotelService.save(hotel);
-            redirectAttributes.addFlashAttribute("success", "Hotel added!");
+            redirectAttributes.addFlashAttribute("successHotelMsg", "Hotel added!");
             return "redirect:/admin";
         }
+    }
+
+    @RequestMapping(value = "/edit/hotel/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Hotel getHotel(@PathVariable("id") Long id, Model model) {
+        Hotel hotel;
+        if (hotelService.findById(id).isPresent()){
+            hotel = hotelService.findById(id).get();
+        }
+        else {
+            hotel = new Hotel();
+        }
+
+        model.addAttribute("hotel", hotel);
+        return hotel;
+    }
+
+
+    @RequestMapping(value = "/hotel/edit", method = RequestMethod.POST)
+    public String editHotel(@Valid @ModelAttribute("hotel") Hotel hotel, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        Long id = hotel.getId();
+        Hotel existingHotel = hotelService.findById(id).get();
+        if (existingHotel == null) {
+            redirectAttributes.addFlashAttribute("errorHotelMsg", "Something went wrong.");
+            return "redirect:/admin";
+        }
+
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("errorHotelMsg", "Something went wrong.");
+            bindingResult.reject("hotel");
+            return "redirect:/admin";
+        }
+        else {
+            existingHotel.setHotelName(hotel.getHotelName());
+            existingHotel.setHotelDescription(hotel.getHotelDescription());
+            existingHotel.setLatitude(hotel.getLatitude());
+            existingHotel.setLongitude(hotel.getLongitude());
+
+            hotelService.save(existingHotel);
+
+            redirectAttributes.addFlashAttribute("successHotelMsg", "Hotel updated.");
+            return "redirect:/admin";
+        }
+
     }
 
     @RequestMapping(value = "/hotel/delete/{id}", method = RequestMethod.GET)
@@ -141,10 +234,10 @@ public class AdminController {
             }
 
             hotelService.delete(hotel);
-            redirectAttributes.addFlashAttribute("successdelete", "Hotel deleted!");
+            redirectAttributes.addFlashAttribute("successHotelMsg", "Hotel deleted!");
         }
         else {
-            redirectAttributes.addFlashAttribute("errordelete", "Something went wrong.");
+            redirectAttributes.addFlashAttribute("errorHotelMsg", "Something went wrong.");
         }
 
         return "redirect:/admin";
