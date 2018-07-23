@@ -99,52 +99,33 @@
 </div>
 <div id='map' style='width: 1000px; height: 700px; float:left; margin: 10px; border: 1px solid #dddddd;'></div>
 <script type="text/javascript" th:inline="javascript">
-    console.log("longitude " + [[${reservations[2].hotel.longitude}]]+ "latitude"+[[${reservations[3].hotel.latitude}]] +"Duzina liste: " +  [[${reservations.size()}]] );
-    // var lista = [[${reservations}]];
+
+    mapboxgl.accessToken = 'pk.eyJ1IjoiYW9tZXJvdmljIiwiYSI6ImNqanBnaG1oajA0ZjUzcHFkOGNsemF0YzAifQ.I4bEhIYDrJJCQE8QNAJCMA';
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v10',
+        center: [18.4131,43.8563],
+        zoom: 15
+    });
+    map.on('load', function() {
+        getRoute();
+    });
+
+    function bla(e){
+        e.preventDefault();
+        getRoute();
+        return false;
+    }
+    function getRoute() {
+        var i;
+        var lista = [[${reservations}]];
+        for(i=0; i<[[${reservations.size()}]]; i++) {
 
 
-    var i;
 
+            console.log("User" + i+1+": longitude: "+[[${reservations[i].user.longitude}]]+" latitude: "+[[${reservations[i].user.longitude}]]);
+        }
 
-    // function getList()
-    // {
-    //     return lista;
-    // }
-
-
-</script>
-<script>
-//     mapboxgl.accessToken = 'pk.eyJ1IjoiYW9tZXJvdmljIiwiYSI6ImNqanBnaG1oajA0ZjUzcHFkOGNsemF0YzAifQ.I4bEhIYDrJJCQE8QNAJCMA';
-//     var map = new mapboxgl.Map({
-//         container: 'map',
-//         style: 'mapbox://styles/mapbox/streets-v10',
-//         center: [18.4131,43.8563],
-//         zoom: 15
-//     });
-//     map.on('load', function() {
-//         getRoute();
-//     });
-//     function bla(e){
-//         e.preventDefault();
-//         getRoute();
-//         return false;
-//     }
-//     function getRoute() {
-//
-//
-//         var i;
-//         var lista = [[${reservations}]];
-//         for(i = 0; i<lista.length; i++) {
-//             // var userLongitude= lista[i].getAttribute("user").getAttribute("longitude");
-//             // var userLatitude = lista[i].getAttribute("user").getAttribute("latitude");
-//             // var hotelLongitude= lista[i].getAttribute("hotel").getAttribute("longitude");
-//             // var hotelLatitude = lista[i].getAttribute("hotel").getAttribute("latitude");
-//
-//             // var start = [userLongitude,userLatitude];
-//             // var end = [hotelLongitude,hotelLatitude];
-//
-//             // var end = [18.426076, 43.985432];
-//             console.log("aaa");
 //             var directionsRequest = 'https://api.mapbox.com/directions/v5/mapbox/driving/' + start[0] + ',' + start[1] + ';' + end[0] + ',' + end[1] + '?steps=true&geometries=geojson&access_token=' + mapboxgl.accessToken;
 //             $.ajax({
 //                 method: 'GET',
@@ -175,6 +156,7 @@
 //                             geometry: {
 //                                 type: 'Point',
 //                                 coordinates: start
+//
 //                             }
 //                         }
 //                     }
@@ -195,8 +177,8 @@
 //                 });
 // // this is where the JavaScript from the next step will go
 //             });
-//         }
-//     }
+//          }
+    }
 </script>
 <div></div>
 
