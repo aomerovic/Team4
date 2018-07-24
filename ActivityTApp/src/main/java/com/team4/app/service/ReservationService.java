@@ -26,6 +26,10 @@ public class ReservationService {
         return reservationsRepository.findByHotel(hotel);
     }
 
+    public Iterable<Reservation> findAll(){
+        return reservationsRepository.findAll();
+    }
+
     public void save(Reservation reservations) {
         reservationsRepository.save(reservations);
     }

@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.List;
+
 @Controller
 public class TestController {
 
@@ -44,5 +46,21 @@ public class TestController {
     public void testAdmin() {
         User user = new User("ROLE_ADMIN", "Jimmy", "Shoe", "jimmy", bCryptPasswordEncoder.encode("password123"), 12.174219, 17.068659);
         usersService.save(user);
+    }
+
+    @RequestMapping(value = "/addres", method = RequestMethod.GET)
+    public void addRes() {
+        List<User> users = (List<User>) usersService.findAll();
+        List<Hotel> hotels = (List<Hotel>) hotelsService.findAll();
+
+        for (User user : users) {
+            for (Hotel hotel : hotels) {
+                Reservation reservation = new Reservation();
+                reservation.setUser(user);
+                reservation.setHotel(hotel);
+
+                reservationsService.save(reservation);
+            }
+        }
     }
 }
