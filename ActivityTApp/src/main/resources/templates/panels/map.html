@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+
+    <style>
+    body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: aliceblue;
+    }
+
+    .topnav {
+    overflow: hidden;
+    background-color: #333;
+    }
+
+    .topnav a {
+    float: right;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 34px 70px 30px;
+    text-decoration: none;
+    font-size: 20px;
+    }
+
+    .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+    height: 30px;
+    }
+
+    .topnav a.active {
+    background-color: #4CAF50;
+    color: white;
+    }
+    .topnav #name {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #dddddd;
+    font-size: 30px;
+    float: left;
+    padding-left: 25px;
+    padding-top: 25px;
+    }
+
+
+    #map { position:relative; }
+</style>
+</head>
+<body>
+<div id="container">
+    <div class="topnav">
+        <p id="name">Travel Activity Tracker</p>
+        <a href="#logout">Logout</a>
+        <a href="#back">Book a hotel</a>
+    </div>
+    <div id='map' style="width: 1900px; height: 850px; float: right; margin: 10px 10px 10px 10px;"></div>
+</div>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoiYW9tZXJvdmljIiwiYSI6ImNqanBnaG1oajA0ZjUzcHFkOGNsemF0YzAifQ.I4bEhIYDrJJCQE8QNAJCMA';
+        console.log("hocemo li ikad");
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v10',
+            center: [18.4131,43.8563],
+            zoom: 15
+        });
+          map.on('load', function() {
+              getRoute();
+          });
+
+        function getRoute() {
+
+
+            var long = [[${hotel.getLongitude()}]];
+            var lat = [[${hotel.getLatitude()}]];
+
+            var start = [18.413076, 43.856259];
+            var end = [long, lat];
+            var directionsRequest = 'https://api.mapbox.com/directions/v5/mapbox/driving/' + start[0] + ',' + start[1] + ';' + end[0] + ',' + end[1] + '?steps=true&geometries=geojson&access_token=' + mapboxgl.accessToken;
+            $.ajax({
+                method: 'GET',
+                url: directionsRequest,
+            }).done(function(data) {
+                var route = data.routes[0].geometry;
+                map.addLayer({
+                    id: 'route',
+                    type: 'line',
+                    source: {
+                        type: 'geojson',
+                        data: {
+                            type: 'Feature',
+                            geometry: route
+                        }
+                    },
+                    paint: {
+                        'line-width': 2
+                    }
+                });
+                map.addLayer({
+                    id: 'start',
+                    type: 'circle',
+                    source: {
+                        type: 'geojson',
+                        data: {
+                            type: 'Feature',
+                            geometry: {
+                                type: 'Point',
+                                coordinates: start
+                            }
+                        }
+                    }
+                });
+                map.addLayer({
+                    id: 'end',
+                    type: 'circle',
+                    source: {
+                        type: 'geojson',
+                        data: {
+                            type: 'Feature',
+                            geometry: {
+                                type: 'Point',
+                                coordinates: end
+                            }
+                        }
+                    }
+                });
+// this is where the JavaScript from the next step will go
+            });
+        }
+
+    </script>
+</body>
+</html>

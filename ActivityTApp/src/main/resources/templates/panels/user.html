@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <title>User panel</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-    <script src='https://api.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
 
@@ -48,6 +48,7 @@
             font-size: 30px;
             float: left;
             padding-left: 25px;
+            padding-top: 25px;
         }
 
         input[type=text], input[type=number] {
@@ -101,87 +102,169 @@
             display: table;
         }
 
+        #map { position:relative; }
+
     </style>
 </head>
 
 <body>
-    <div id="container">
-        <div class="topnav">
-            <p id="name">Travel Activity Tracker</p>
-            <a href="#logout">Logout</a>
-        </div>
-        <div id='map' style='width: 1000px; height: 800px; padding-top: 10px; float: right;'></div>
-        <div id="hotelInfo" style='float: left'>
-
-            <form th:action="@{/save}" method="post" style="border:1px solid #ccc; margin-left: 50px; margin-top: 50px">
-                <div class="hotelAdd">
-                    <div th:if="${success}" class="alert alert-success" role="alert">
-                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                        <span class="sr-only">Error:</span>
-                        <p th:text="${success}"></p>
-                    </div>
-                    <hr>
-                    <label><b>Hotel name</b></label>
-                    </br>
-                    <input type="text" placeholder="Enter hotel name" name="hotel" required>
-                    </br>
-                    <label ><b>Description</b></label>
-                    </br>
-                    <input type="text" placeholder="Enter hotel description" name="description" required>
-                    </br>
-                    <label ><b>Longitude</b></label>
-                    <input type="text" placeholder="Insert longitude" name="longitude" required>
-                    <label><b>Latitude</b></label>
-                    <input type="text" placeholder="Insert latitude" name="latitude" required>
-                    <div class="clearfix">
-                        <button type="submit" class="addbtn">Add hotel</button>
-                    </div>
-                </div>
-            </form>
-        </div>
+<div id="container">
+    <div class="topnav">
+        <p id="name">Travel Activity Tracker</p>
+        <a href="#logout">Logout</a>
     </div>
-    <script>
-            mapboxgl.accessToken = 'pk.eyJ1IjoiYW9tZXJvdmljIiwiYSI6ImNqanBnaG1oajA0ZjUzcHFkOGNsemF0YzAifQ.I4bEhIYDrJJCQE8QNAJCMA';
+    <div id='map' style="width: 1000px; height: 800px; float: right;"></div>
+    <div id="hotelInfo" style='float: left'>
+
+        <form >
+            <div class="hotelAdd">
+                <div th:if="${success}" class="alert alert-success" role="alert">
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    <p th:text="${success}"></p>
+                </div>
+                <hr>
+                <label><b>Hotel name</b></label>
+                </br>
+                <input type="text" placeholder="Enter hotel name" name="hotel" required>
+                </br>
+                <label ><b>Description</b></label>
+                </br>
+                <input type="text" placeholder="Enter hotel description" name="description" required>
+                </br>
+                <label ><b>Longitude</b></label>
+                <input id="long" type="text" placeholder="Insert longitude" name="longitude" required>
+                <label><b>Latitude</b></label>
+                <input id="lat" type="text" placeholder="Insert latitude" name="latitude" required>
+                <div class="clearfix">
+                    <button type="submit" class="addbtn" >
+                        Add hotel
+                    </button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<script>
+
+
+  /*  function saveHotel(){
+        var neam = $('#inputName').val();
+        var rating = $('#inputRating').val();
+        var latitude = $('#inputLatitude').val();
+        var longitude = $('#inputLongitude').val();
+        var address = $('#inputAddress').val();
+        console.log(name, rating, latitude, longitude, address);
+        var hotel = {
+            name: name,
+            rating: rating,
+            latitude: latitude,
+            longitude: longitude,
+            address : address
+        }
+        if (hotelId!=0) putHotel(hotel);
+        else createHotel(hotel);
+        hotelId=0;
+    }
+
+    function createHotel(hotel){
+
+        $.ajax({
+            type: 'POST',
+            url: 'http://localhost:8081/user',
+            contentType: "application/json",
+            data: JSON.stringify(hotel),
+            success: function (msg) {
+                alert("success");
+                getAllHotels();
+            },
+            error: function (request, status, error) {
+                alert(error);
+            }
+        });*/
+    }
+           mapboxgl.accessToken = 'pk.eyJ1IjoiYW9tZXJvdmljIiwiYSI6ImNqanBnaG1oajA0ZjUzcHFkOGNsemF0YzAifQ.I4bEhIYDrJJCQE8QNAJCMA';
+           console.log("hocemo li ikad");
             var map = new mapboxgl.Map({
-            container: 'map',
-            style: 'mapbox://styles/mapbox/streets-v10'
+                container: 'map',
+                style: 'mapbox://styles/mapbox/streets-v10',
+                center: [18.4131,43.8563],
+                zoom: 15
             });
-            // var geojson = {
-            //     "type": "FeatureCollection",
-            //     "features": [
-            //         {
-            //             "type": "Feature",
-            //             "properties": {
-            //                 "message": "Foo",
-            //                 "iconSize": [60, 60]
-            //             },
-            //             "geometry": {
-            //                 "type": "Point",
-            //                 "coordinates": [
-            //                     -66.324462890625,
-            //                     -16.024695711685304
-            //                 ]
-            //             }
-            //         }
-            //         ]
-            // ];
-            // geojson.features.forEach(function(marker) {
-            //     // create a DOM element for the marker
-            //     var el = document.createElement('div');
-            //     el.className = 'marker';
-            //     el.style.backgroundImage = 'url(https://placekitten.com/g/' + marker.properties.iconSize.join('/') + '/)';
-            //     el.style.width = marker.properties.iconSize[0] + 'px';
-            //     el.style.height = marker.properties.iconSize[1] + 'px';
-            //
-            //     el.addEventListener('click', function() {
-            //         window.alert(marker.properties.message);
-            //     });
-            //
-            //     // add marker to map
-            //     new mapboxgl.Marker(el)
-            //         .setLngLat(marker.geometry.coordinates)
-            //         .addTo(map);
-            // });
+          /*  map.on('load', function() {
+                getRoute();
+            });*/
+            function bla(e){
+                console.log("a");
+                e.preventDefault();
+                console.log("aa");
+                getRoute();
+                console.log("aaa");
+                return false;
+
+            }
+
+           function getRoute() {
+
+              // var hotels = [[${hotel}]];
+
+               var start = [18.413076, 43.856259];
+              //  var end = [18.417228, 43.858922];
+               var directionsRequest = 'https://api.mapbox.com/directions/v5/mapbox/cycling/' + start[0] + ',' + start[1] + ';' + end[0] + ',' + end[1] + '?steps=true&geometries=geojson&access_token=' + mapboxgl.accessToken;
+               $.ajax({
+                    method: 'GET',
+                    url: directionsRequest,
+                }).done(function(data) {
+                   var route = data.routes[0].geometry;
+                   map.addLayer({
+                        id: 'route',
+                        type: 'line',
+                        source: {
+                            type: 'geojson',
+                            data: {
+                                type: 'Feature',
+                                geometry: route
+                            }
+                        },
+                        paint: {
+                            'line-width': 2
+                        }
+                    });
+                    map.addLayer({
+                        id: 'start',
+                        type: 'circle',
+                        source: {
+                            type: 'geojson',
+                            data: {
+                                type: 'Feature',
+                                geometry: {
+                                    type: 'Point',
+                                    coordinates: start
+                                }
+                            }
+                        }
+                    });
+                    map.addLayer({
+                        id: 'end',
+                        type: 'circle',
+                        source: {
+                            type: 'geojson',
+                            data: {
+                                type: 'Feature',
+                                geometry: {
+                                    type: 'Point',
+                                    coordinates: end
+                                }
+                            }
+                        }
+                    });
+// this is where the JavaScript from the next step will go
+                });
+            }
+
+
 
     </script>
 </body>
