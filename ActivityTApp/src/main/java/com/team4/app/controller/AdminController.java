@@ -4,12 +4,14 @@ import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.team4.app.model.Hotel;
 import com.team4.app.model.Reservation;
 import com.team4.app.model.User;
+import com.team4.app.service.EmailService;
 import com.team4.app.service.HotelService;
 import com.team4.app.service.ReservationService;
 import com.team4.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,12 +19,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.jws.WebParam;
-import javax.management.relation.RelationService;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 @Controller
 public class AdminController {
@@ -31,16 +30,19 @@ public class AdminController {
     private HotelService hotelService;
     private ReservationService reservationService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private EmailService emailService;
 
     @Autowired
     public AdminController(UserService userService,
                            HotelService hotelService,
                            ReservationService reservationService,
-                           BCryptPasswordEncoder bCryptPasswordEncoder) {
+                           BCryptPasswordEncoder bCryptPasswordEncoder,
+                           EmailService emailService) {
         this.userService = userService;
         this.hotelService = hotelService;
         this.reservationService = reservationService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.emailService = emailService;
     }
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
@@ -61,7 +63,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/user/add", method = RequestMethod.POST)
-    public String addNewUser(Model model, @Valid User user, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String addNewUser(Model model, @Valid User user, BindingResult bindingResult, RedirectAttributes redirectAttributes, HttpServletRequest request) {
 
         model.addAttribute("user", new User());
         model.addAttribute("hotel", new Hotel());
@@ -73,14 +75,28 @@ public class AdminController {
 
         }
         else {
-            if (userService.findByUsername(user.getUsername()) != null){
-                redirectAttributes.addFlashAttribute("errorUserDelete", "Invalid username!");
-                bindingResult.reject("Username exists");
+            if (userService.findByUsername(user.getEmail()) != null){
+                redirectAttributes.addFlashAttribute("errorUserDelete", "User with that email already exists!");
+                bindingResult.reject("email");
                 return "redirect:/admin";
             }
-            user.setRole("ROLE_USER");
-            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+            user.setRole("ROLE_SUPERVISOR");
+
+            user.setEnabled(false);
+            user.setPasswordResetToken(userService.getNewToken());
+            user.setConfirmAccountToken(userService.getNewToken());
+            user.setReactivateAccountToken(userService.getNewToken());
+
             userService.save(user);
+
+            String appUrl = request.getScheme() + "://" + request.getServerName();
+            SimpleMailMessage registrationEmail = new SimpleMailMessage();
+            registrationEmail.setTo(user.getEmail());
+            registrationEmail.setSubject("Confirm your email");
+            registrationEmail.setText("To activate your account, please click on the link below:\n"
+                    + appUrl + ":8080/confirm-user-account?token=" + user.getConfirmAccountToken());
+
+            emailService.sendEmail(registrationEmail);
 
             redirectAttributes.addFlashAttribute("successUserDelete", "User added!");
             return "redirect:/admin";

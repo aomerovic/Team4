@@ -21,6 +21,9 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "email")
+    private String email;
+
     @Column(name = "username")
     private String username;
 
@@ -32,6 +35,34 @@ public class User {
 
     @Column(name = "latitude")
     private Double latitude;
+
+    @Column(name = "reactivate_account_token")
+    private String reactivateAccountToken;
+
+    @Column(name = "confirm_account_token")
+    private String confirmAccountToken;
+
+    @Column(name = "password_reset_token")
+    private String passwordResetToken;
+
+    @Column(name = "enabled")
+    private boolean enabled;
+
+    public User(User user) {
+        this.role = user.role;
+        this.firstName = user.firstName;
+        this.lastName = user.lastName;
+        this.email = user.email;
+        this.username = user.username;
+        this.password = user.password;
+        this.longitude = user.longitude;
+        this.latitude = user.latitude;
+        this.passwordResetToken = user.passwordResetToken;
+        this.confirmAccountToken = user.confirmAccountToken;
+        this.reactivateAccountToken = user.reactivateAccountToken;
+        this.enabled = user.enabled;
+
+    }
 
     public User() {
 
@@ -45,6 +76,14 @@ public class User {
         this.password = password;
         this.longitude = longitude;
         this.latitude = latitude;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getUsername() {
@@ -109,5 +148,37 @@ public class User {
 
     public void setLatitude(Double latitude) {
         this.latitude = latitude;
+    }
+
+    public String getReactivateAccountToken() {
+        return reactivateAccountToken;
+    }
+
+    public void setReactivateAccountToken(String reactivateAccountToken) {
+        this.reactivateAccountToken = reactivateAccountToken;
+    }
+
+    public String getConfirmAccountToken() {
+        return confirmAccountToken;
+    }
+
+    public void setConfirmAccountToken(String confirmAccountToken) {
+        this.confirmAccountToken = confirmAccountToken;
+    }
+
+    public String getPasswordResetToken() {
+        return passwordResetToken;
+    }
+
+    public void setPasswordResetToken(String passwordResetToken) {
+        this.passwordResetToken = passwordResetToken;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

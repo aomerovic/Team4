@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -16,9 +17,13 @@ public class UserService {
     public Optional<User> findById(Long id) {
         return usersRepository.findById(id);
     }
+    public User findByEmail(String email) {
+        return usersRepository.findByEmail(email);
+    }
     public User findByUsername(String username) {
         return usersRepository.findByUsername(username);
     }
+
     public Iterable<User> findAll() {
         return usersRepository.findAll();
     }
@@ -29,5 +34,21 @@ public class UserService {
 
     public void delete(User user) {
         usersRepository.delete(user);
+    }
+
+
+    public String getNewToken(){
+        return UUID.randomUUID().toString().replace("-", "");
+    }
+    public User findByPasswordResetToken(String passwordResetToken){
+        return usersRepository.findByPasswordResetToken(passwordResetToken);
+    }
+
+    public User findByConfirmAccountToken(String confirmAccountToken){
+        return usersRepository.findByConfirmAccountToken(confirmAccountToken);
+    }
+
+    public User findByReactivateAccountToken(String reactivateAccountToken){
+        return usersRepository.findByReactivateAccountToken(reactivateAccountToken);
     }
 }

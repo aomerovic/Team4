@@ -11,9 +11,16 @@ import java.util.Set;
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
 
+    User findByEmail(String email);
+
     User findByUsername(String username);
 
     @Query("SELECT DISTINCT u.role FROM User u")
     Set<String> findDistinctRole();
 
+    User findByPasswordResetToken(String passwordResetToken);
+
+    User findByConfirmAccountToken(String confirmAccountToken);
+
+    User findByReactivateAccountToken(String reactivateAccountToken);
 }

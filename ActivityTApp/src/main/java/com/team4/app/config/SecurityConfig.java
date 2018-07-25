@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/", "/login","/test", "/test-admin", "/supervisor", "/routes", "/routes/*", "/routes/**").permitAll()
+                .antMatchers("/", "/login", "/register","/confirm-account","/confirm-user-account","/test", "/test-admin", "/supervisor", "/routes", "/routes/*", "/routes/**", "/forgot-password", "/reset-password").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -39,6 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .usernameParameter("username")
                     .passwordParameter("password")
                     .defaultSuccessUrl("/default")
+                    .failureUrl("/login?error=Invalid-username-or-password.")
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/login")
@@ -51,3 +52,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 }
+

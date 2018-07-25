@@ -56,9 +56,7 @@
                                     </br>
                                     <input type="text" placeholder="Last name" name="lastnameAdd" id="lastnameAdd" th:field="*{lastName}" required>
                                     </br>
-                                    <input type="text" placeholder="Username" name="usernameAdd" id="usernameAdd" th:field="*{username}" required>
-                                    </br>
-                                    <input type="password" placeholder="Password" name="passwordAdd" id="passwordAdd" th:field="*{password}" required>
+                                    <input type="text" placeholder="Email" name="emailAdd" id="emailAdd" th:field="*{email}" required>
                                     </br>
                                     <input type="text" placeholder="Longitude" name="user-longitudeAdd" id="user-longitudeAdd" th:field="*{longitude}" required>
                                     </br>
@@ -81,9 +79,7 @@
                                     </br>
                                     <input type="text" placeholder="Last name" name="lastnameEdit" id="lastnameEdit" th:field="*{lastName}" required>
                                     </br>
-                                    <input type="text" placeholder="Username" name="usernameEdit" id="usernameEdit" th:field="*{username}" required>
-                                    </br>
-                                    <input type="password" placeholder="Password" name="passwordEdit" id="passwordEdit" th:field="*{password}" >
+                                    <input type="text" placeholder="Email" name="emailEdit" id="emailEdit" th:field="*{email}" required>
                                     </br>
                                     <input type="text" placeholder="Longitude" name="userlongitudeEdit" id="userlongitudeEdit" th:field="*{longitude}" required>
                                     </br>
@@ -255,13 +251,13 @@
 
                 var firstname = user.firstName;
                 var lastname = user.lastName;
-                var username = user.username;
+                var email = user.email;
                 var longitude = user.longitude;
                 var latitude = user.latitude;
 
                 $('input[id="firstnameEdit"]').val(firstname);
                 $('input[id="lastnameEdit"]').val(lastname);
-                $('input[id="usernameEdit"]').val(username);
+                $('input[id="emailEdit"]').val(email);
                 $('input[id="userlongitudeEdit"]').val(longitude);
                 $('input[id="userlatitudeEdit"]').val(latitude);
                 $('input[id="userIdEdit"]').val(id);
