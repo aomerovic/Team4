@@ -46,11 +46,11 @@
                 <div class="row">
                     <div class="col-sm-5">
                         <div id="user-form-add">
-                            <form class="user-form" th:action="@{/user/add}" method="post" th:object="${user}">
+                            <form class="user-form" th:action="@{/user/add}" method="post" th:object="${user}" onsubmit="return validateUserAddForm()">
                                 <div class="user-form-div">
                                     <p>Add User</p>
                                     <div class="alert alert-success div-msg" th:if="${successUserAdd}" th:text="${successUserAdd}"></div>
-                                    <div class="alert alert-danger div-msg" th:if="${errorUserAdd}" th:text="${errorUserAdd}"></div>
+                                    <div class="alert alert-danger div-msg" id="error-msg-div-useradd"><p id="error-msg-p-useradd"></p></div>
                                     </br>
                                     <input type="text" placeholder="First name" name="firstnameAdd" id="firstnameAdd" th:field="*{firstName}" required>
                                     </br>
@@ -69,11 +69,12 @@
                             </form>
                         </div>
                         <div id="user-form-edit" style="display: none;">
-                            <form class="user-form" id="userFormEdit" th:action="@{/user/edit}" method="post" th:object="${user}">
+                            <form class="user-form" id="userFormEdit" th:action="@{/user/edit}" method="post" th:object="${user}" onsubmit="return validateUserEditForm()">
                                 <div class="user-form-div">
                                     <p>Edit User</p>
                                     <div class="alert alert-success div-msg" th:if="${successUserEdit}" th:text="${successUserEdit}"></div>
-                                    <div class="alert alert-danger div-msg" th:if="${errorUserEdit}" th:text="${errorUserEdit}"></div>
+                                    <div class="alert alert-danger div-msg" id="error-msg-div-useredit"><p id="error-msg-p-useredit"></p></div>
+
                                     </br>
                                     <input type="text" placeholder="First name" name="firstnameEdit" id="firstnameEdit" th:field="*{firstName}" required>
                                     </br>
@@ -136,9 +137,11 @@
                 <div class="row">
                     <div class="col-sm-5">
                         <div id="hotel-form-add">
-                            <form class="user-form" th:action="@{/hotel/add}" method="post" th:object="${hotel}">
+                            <form class="user-form" th:action="@{/hotel/add}" method="post" th:object="${hotel}" onsubmit="return validateHotelAddForm()">
                                 <div class="user-form-div">
                                     <p>Add Hotel</p>
+                                    <div class="alert alert-danger div-msg" id="error-msg-div-hoteladd"><p id="error-msg-p-hoteladd"></p></div>
+
                                     </br>
                                     <input type="text" placeholder="Hotel name" name="hotelnameAdd" id="hotelnameAdd" th:field="*{hotelName}" required>
                                     </br>
@@ -155,9 +158,11 @@
                             </form>
                         </div>
                         <div id="hotel-form-edit" style="display: none;">
-                            <form class="user-form" id="hotelEditForm" th:action="@{/hotel/edit}" method="post" th:object="${hotel}">
+                            <form class="user-form" id="hotelEditForm" th:action="@{/hotel/edit}" method="post" th:object="${hotel}" onsubmit="return validateHotelEditForm()">
                                 <div class="user-form-div">
-                                    <p>Add Hotel</p>
+                                    <p>Edit Hotel</p>
+                                    <div class="alert alert-danger div-msg" id="error-msg-div-hoteledit"><p id="error-msg-p-hoteledit"></p></div>
+
                                     </br>
                                     <input type="text" placeholder="Hotel name" name="hotelnameEdit" id="hotelnameEdit" th:field="*{hotelName}" required>
                                     </br>
@@ -344,6 +349,136 @@
                     editBtnId.style.display = 'inline-block';
                 }
             }
+        }
+    }
+    
+    function validateUserAddForm() {
+
+        var msg = "";
+        if (document.getElementById("error-msg-div-useradd").style.display == 'block') {
+            document.getElementById("error-msg-div-useradd").style.display = 'none';
+            $('#error-msg-text').text(msg);
+        }
+
+        var regexDouble = new RegExp("^[0-9]*[.][0-9]+$");
+
+        if (!regexDouble.test($('input[id="user-latitudeAdd"]').val())){
+            msg += "Please provide a valid latitude.\n";
+        }
+
+        if (!regexDouble.test($('input[id="user-longitudeAdd"]').val())){
+            msg += "Please provide a valid longitude.\n";
+        }
+
+        if (msg == "") {
+            return true;
+        }
+        else {
+            if (document.getElementById("error-msg-div-useradd").style.display == 'none') {
+                document.getElementById("error-msg-div-useradd").style.display = 'block';
+                $('#error-msg-p-useradd').text(msg);
+            }
+            return false;
+        }
+    }
+
+    function validateUserEditForm() {
+
+        var msg = "";
+        if (document.getElementById("error-msg-div-useredit").style.display == 'block') {
+            document.getElementById("error-msg-div-useredit").style.display = 'none';
+            $('#error-msg-p-useredit').text(msg);
+        }
+
+        var regexDouble = new RegExp("^[0-9]*[.][0-9]+$");
+
+        if (!regexDouble.test($('input[id="userlatitudeEdit"]').val())){
+            msg += "Please provide a valid latitude.\n";
+        }
+
+        if (!regexDouble.test($('input[id="userlongitudeEdit"]').val())){
+            msg += "Please provide a valid longitude.\n";
+        }
+
+
+        if (msg == "") {
+            return true;
+        }
+        else {
+            if (document.getElementById("error-msg-div-useredit").style.display == 'none') {
+                document.getElementById("error-msg-div-useredit").style.display = 'block';
+                $('#error-msg-p-useredit').text(msg);
+            }
+            return false;
+        }
+    }
+
+    function validateHotelAddForm() {
+
+        var msg = "";
+        if (document.getElementById("error-msg-div-hoteladd").style.display == 'block') {
+            document.getElementById("error-msg-div-hoteladd").style.display = 'none';
+            $('#error-msg-p-hoteladd').text(msg);
+        }
+
+        var regexDouble = new RegExp("^[0-9]*[.][0-9]+$");
+
+
+        if (!regexDouble.test($('input[id="latitudeAdd"]').val())){
+            msg += "Please provide a valid latitude.\n";
+        }
+
+        if (!regexDouble.test($('input[id="longitudeEdit"]').val())){
+            msg += "Please provide a valid longitude.\n";
+        }
+
+        if (msg == "") {
+            return true;
+        }
+        else {
+            if (document.getElementById("error-msg-div-hoteladd").style.display == 'none') {
+                document.getElementById("error-msg-div-hoteladd").style.display = 'block';
+                $('#error-msg-p-hoteladd').text(msg);
+            }
+            return false;
+        }
+    }
+
+    function validateHotelEditForm() {
+
+        var msg = "";
+        if (document.getElementById("error-msg-div-hoteledit").style.display == 'block') {
+            document.getElementById("error-msg-div-hoteledit").style.display = 'none';
+            $('#error-msg-p-hoteledit').text(msg);
+        }
+
+        var regexDouble = new RegExp("^[0-9]*[.][0-9]+$");
+
+        if (!regexDouble.test($('input[id="user-latitudeAdd"]').val()) || !regexDouble.test($('input[id="userlatitudeEdit"]').val())){
+            msg += "Please provide a valid latitude.\n";
+        }
+
+        if (!regexDouble.test($('input[id="user-longitudeAdd"]').val()) || !regexDouble.test($('input[id="userlongitudeEdit"]').val())){
+            msg += "Please provide a valid longitude.\n";
+        }
+
+        if (!regexDouble.test($('input[id="latitudeAdd"]').val()) || !regexDouble.test($('input[id="latitudeEdit"]').val())){
+            msg += "Please provide a valid latitude.\n";
+        }
+
+        if (!regexDouble.test($('input[id="longitudeAdd"]').val()) || !regexDouble.test($('input[id="longitudeEdit"]').val())){
+            msg += "Please provide a valid longitude.\n";
+        }
+
+        if (msg == "") {
+            return true;
+        }
+        else {
+            if (document.getElementById("error-msg-div-hoteledit").style.display == 'none') {
+                document.getElementById("error-msg-div-hoteledit").style.display = 'block';
+                $('#error-msg-p-hoteledit').text(msg);
+            }
+            return false;
         }
     }
 </script>
