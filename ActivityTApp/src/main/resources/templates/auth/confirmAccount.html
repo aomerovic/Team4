@@ -116,21 +116,19 @@
         <p id="name">Travel Activity Tracker</p>
     </div>
     <div>
-        <form class="login-form" th:action="@{/login}" method="post">
+        <form class="login-form" th:action="@{/confirm-user-account}" method="post">
             <div class="login-form-div">
                 <i class="fa fa-user-circle-o login-form-div-icon"></i>
                 </br>
                 <div class="alert alert-success" th:if="${success}" th:text="${success}" style="margin: auto; width: 93%; border-radius: 0;"></div>
                 <div class="alert alert-danger" th:if="${error}" th:text="${error}" style="margin: auto; width: 93%; border-radius: 0;"></div>
-                <div class="alert alert-danger" th:if="${errorMsg}" th:text="${errorMsg}" style="margin: auto; width: 93%; border-radius: 0;"></div>
-
                 <input type="text" placeholder="username" name="username" required>
                 </br>
                 <input type="password" placeholder="password" name="password" required>
                 </br>
-                <a th:href="@{/forgot-password}">Reset password</a>
+                <input type="hidden" name="token" th:value="${token}">
                 <div class="clearfix">
-                    <input class="login-button" type="submit" value="Log In">
+                    <input class="login-button" type="submit" value="Activate">
                 </div>
             </div>
         </form>

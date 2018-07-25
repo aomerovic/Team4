@@ -3,22 +3,38 @@
 <head>
     <meta charset="UTF-8"/>
 
-    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-    <script type="text/javascript" th:src="@{/webjars/jquery/3.1.0/jquery.min.js}"></script>
-    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+    <!--<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />-->
+    <!--<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>-->
     <!--<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.js'></script>-->
     <!--<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.css' rel='stylesheet' />-->
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.js'></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <!--<script src='https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js'></script>-->
+    <!--&lt;!&ndash; Optional theme &ndash;&gt;-->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">-->
+
+    <!--&lt;!&ndash; Latest compiled and minified JavaScript &ndash;&gt;-->
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>-->
+    <!--&lt;!&ndash;<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.js'></script>&ndash;&gt;-->
+    <!--&lt;!&ndash;<script src='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.js'></script>&ndash;&gt;-->
+    <!--&lt;!&ndash;<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.css' rel='stylesheet' />&ndash;&gt;-->
+    <!--&lt;!&ndash;<link href='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />&ndash;&gt;-->
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">-->
+    <!--&lt;!&ndash;<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>&ndash;&gt;-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>-->
+    <!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>-->
+
+
     <script src='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.css' rel='stylesheet' />
     <link href='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />
 
 
@@ -28,12 +44,10 @@
             font-family: Arial, Helvetica, sans-serif;
             background-color: aliceblue;
         }
-
         .topnav {
             overflow: hidden;
             background-color: #333;
         }
-
         .topnav a {
             float: right;
             color: #f2f2f2;
@@ -42,13 +56,11 @@
             text-decoration: none;
             font-size: 20px;
         }
-
         .topnav a:hover {
             background-color: #ddd;
             color: black;
             height: 30px;
         }
-
         .topnav a.active {
             background-color: #4CAF50;
             color: white;
@@ -61,7 +73,6 @@
             padding-left: 25px;
             padding-top: 25px;
         }
-
         input[type=text], input[type=number] {
             width: 90%;
             padding: 15px;
@@ -73,20 +84,15 @@
         label {
             margin-left: 15px;
         }
-
         input[type=text]:focus, input[type=number]:focus {
             background-color: #ddd;
             outline: none;
-
         }
-
         hr {
             border: 1px solid #f1f1f1;
             margin-bottom: 25px;
         }
-
-        #seeLocationBtn, #bookBtn {
-
+        #seeLocationBtn, .btnBook {
             background-color: #4CAF50;
             color: white;
             border: none;
@@ -94,13 +100,12 @@
             width: 100px;
             opacity: 0.9;
         }
-
-        #seeLocationBtn, #bookBtn :hover {
+        #seeLocationBtn, .btnBook :hover {
             opacity: 1;
         }
-        .addbtn {
+        .btnBook {
             float: left;
-            width: 50%;
+            width: 100%;
         }
         .hotelAdd {
             width: 700px;
@@ -111,49 +116,108 @@
             display: table;
         }
         #map {
-            width: 900px;
-            height: 700px;
+            width: 1200px;
+            height: 1000px;
             float:right;
         }
         .card{
+            margin-top: 30px;
+            margin-left: 30px;
             float:left;
+            width: 800px;
         }
+        .marker {
+            display: block;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            padding: 0;
+        }
+        .logout-form {
+            width: 100px;
+            background-color:  #333;
+            margin-top: 5px;
+            margin-right: 15px;
+            float: right;
+        }
+
+        .logout-form-button {
+            background-color:  #333;
+            color:  #dddddd;
+            font-size: 22px;
+        }
+
+        .logout-form-button:hover{
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        span #stars, span #stars span {
+            display: block;
+            background: url(http://www.ulmanen.fi/stuff/stars.png) 0 -16px repeat-x;
+            width: 80px;
+            height: 16px;
+        }
+
+        span #stars span {
+            background-position: 0 0;
+        }
+
     </style>
 </head>
 <body>
-<div class="container">
+<div id="container">
     <div class="topnav">
-        <p id="name">Travel Activity Tracker</p>
-        <a href="#logout">Logout</a>
+        <h2 id="name">Travel Activity Tracker</h2>
+        <form id="form-logout" class="logout-form" name="form-logout" th:action="@{/logout}" method="post">
+        <button type="submit" id="logout-button" class="btn btn-link logout-form-button" style="margin-top: 10px;">Logout</button>
+    </form>
     </div>
     <div id='map'></div>
     <div class="card" id="cardId">
         <div class="card-block">
-            <table class="table table-hover">
-                <thread>
+            <!--<table class="table table-hover">-->
+            <form th:action="@{/save1}" method="get">
+            <table id="example" class="table table-striped table-bordered" style="width:100%">
+                <thead>
                     <tr>
                         <th>Hotel name</th>
                         <th>Hotel description</th>
                         <th>Longitude</th>
                         <th>Latitude</th>
+                        <!--<th>Rating</th>-->
+                        <th style="display: none"></th>
+                        <th style="display: none"></th>
+                        <th></th>
+                        <th></th>
                     </tr>
-                </thread>
+                </thead>
                 <tbody>
-                <form th:action="@{/save1}" method="get">
-                <tr th:each="hotel:${data}">
-                    <td th:name="'hotelName-'+ ${hotel.id}" th:text="${hotel.hotelName}"></td>
-                    <td th:name="'hotelDescription-'+ ${hotel.id}" th:text="${hotel.hotelDescription}"></td>
-                    <td th:name="'hotelLongitude-'+ ${hotel.id}" th:text="${hotel.longitude}"></td>
-                    <td th:name="'hotelLatitude-'+ ${hotel.id}" th:text="${hotel.latitude}"></td>
-                    <input th:id="${hotel.id}"  style="display: none"/>
-                    <input th:id="${user.id}" class="userID"  style="display: none"/>
-                    <td><input type="button" id="seeLocationBtn" th:onclick="'BtnOnClick('+${hotel.longitude}+','+${hotel.longitude}+  ',' +${user.longitude}+','+${user.latitude}+ ','+${hotel.id}+  ')'" value="See location" /></td>
-                    <td><input type="button" th:id="'bookBtn' + ${hotel.id}" value="Book a hotel" th:onclick="'BookAHotel('+${hotel.longitude}+','+${hotel.latitude} + ',' +${user.longitude}+','+${user.latitude}+ ',' + ${user.id} + ',' + ${hotel.id} +  ')'" data-toggle="modal" data-target="#exampleModalCenter" /></td>
-                </tr>
-                </form>
+                    <tr th:each="hotel:${data}">
+                        <td th:name="'hotelName-'+ ${hotel.id}" th:text="${hotel.hotelName}"></td>
+                        <td th:name="'hotelDescription-'+ ${hotel.id}" th:text="${hotel.hotelDescription}"></td>
+                        <td th:name="'hotelLongitude-'+ ${hotel.id}" th:text="${hotel.longitude}"></td>
+                        <td th:name="'hotelLatitude-'+ ${hotel.id}" th:text="${hotel.latitude}"></td>
+                        <!--<td>-->
+                            <!--<p>-->
+                                <!--<span id="stars" th:class="'stars' + ${hotel.id}">-->
+                                    <!--<span style="width: 48px;">-->
+                                        <!--<input th:id="${hotel.rating}" class="ratingID" style="display: none"/>-->
+                                        <!--<input th:id="${hotel.id}" class="ID" style="display: none"/>-->
 
+                                    <!--</span>-->
+                                <!--</span>-->
+                            <!--</p>-->
+                        <!--</td>-->
+                        <td style="display: none"><input th:id="${hotel.id}"  style="display: none"/></td>
+                        <td style="display: none"><input th:id="${user.id}" class="userID"  style="display: none"/></td>
+                        <td><input type="button" id="seeLocationBtn" th:onclick="'BtnOnClick('+${hotel.longitude}+','+${hotel.latitude}+  ',' +${user.longitude}+','+${user.latitude}+ ','+${hotel.id}+ ')'" value="See location" /></td>
+                        <td><input type="button" class="btnBook" th:id="'bookBtn' + ${hotel.id}" value="Book a hotel" th:onclick="'BookAHotel('+${hotel.longitude}+','+${hotel.latitude} + ',' +${user.longitude}+','+${user.latitude}+ ',' + ${user.id} + ',' + ${hotel.id} +  ')'" data-toggle="modal" data-target="#exampleModalCenter" /></td>
+                    </tr>
                 </tbody>
+
             </table>
+            </form>
         </div>
 
     </div>
@@ -172,7 +236,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="btn" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" id="closeBtn" class="btn btn-primary" onclick=SeeRoute() data-dismiss="modal">See route</button>
                 </div>
             </div>
@@ -186,8 +250,42 @@
     var Ulong = 18.154784;
     var Ulat = 43.12487;
     var User;
+    $(document).ready(function() {
+      /*  var i;
+        var rate = document.getElementsByClassName("ratingID");
+        var idH = document.getElementsByClassName("ID");
+        console.log(idH);
+        for(i = 0; i < rate.length; i++) {
+            var rating = rate[i].id;
+            var hId = idH[i].id;
+            var nameS = "stars"  + hId;
 
-   $(document).ready(function() {
+            $(function () {
+
+                $('p').html('<span class=nameS>' + 2 + '</span>');
+                $('span.nameS').nameS();
+
+            });
+            $.fn.nameS = function () {
+                return $(this).each(function () {
+                    $(this).html($('<span />').width(Math.max(0, (Math.min(5, 1))) * 16));
+                });
+            }
+
+
+        }*/
+
+        // $.ajax({
+        //     type: 'GET',
+        //     url: 'http://localhost:8081/save1',
+        //     success: function (data) {
+        //
+        //         },
+        //     error: function (request, status, error) {
+        //         console.log("error");
+        //     }
+        // });
+        $('#example').DataTable();
         $.ajax({
             type: 'GET',
             url: 'http://localhost:8081/save11',
@@ -199,6 +297,7 @@
                 console.log("error");
             }
         });
+
     });
     function SetValues(data)
     {
@@ -222,35 +321,35 @@
                     btn.value = ifBooked;
                 }
             }
-
-
-           /* var btn = document.getElementById("bookBtn" + hotel.id);
-            btn.value = "Booked";*/
+            /* var btn = document.getElementById("bookBtn" + hotel.id);
+             btn.value = "Booked";*/
         })
-
-
     }
     // Create Map
-
-    mapboxgl.accessToken = 'pk.eyJ1IjoiYW9tZXJvdmljIiwiYSI6ImNqanBnaG1oajA0ZjUzcHFkOGNsemF0YzAifQ.I4bEhIYDrJJCQE8QNAJCMA';
-    /*console.log("hocemo li ikad");
+    //mapboxgl.accessToken = 'pk.eyJ1IjoiYW9tZXJvdmljIiwiYSI6ImNqanBnaG1oajA0ZjUzcHFkOGNsemF0YzAifQ.I4bEhIYDrJJCQE8QNAJCMA';
+    L.mapbox.accessToken = 'pk.eyJ1IjoiYW9tZXJvdmljIiwiYSI6ImNqanBnaG1oajA0ZjUzcHFkOGNsemF0YzAifQ.I4bEhIYDrJJCQE8QNAJCMA';
+    var map = L.mapbox.map('map', 'mapbox.streets')
+        .setView([long, latit], 3);
+    /* console.log("hocemo li ikad");
     var map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v10',
-        center: [long, lat],
+        center: [long, latit],
         zoom: 3
     });*/
-    L.mapbox.accessToken = mapboxgl.accessToken;
-    var map = L.mapbox.map('map', 'mapbox.streets').setView([43.8563, 18.4131], 10);
+    //L.mapbox.accessToken = mapboxgl.accessToken;
+    // var map = L.mapbox.map('map', 'mapbox.streets').setView([43.8563, 18.4131], 10);
+
+
 
     // Book a hotel
     function BookAHotel(longitude, latitude, UserLong, UserLat, userId, hotelId)
     {
-
         document.getElementById("bookParagraph").innerHTML = "Successfully booked a hotel";
         var b = document.getElementById("closeBtn");
+       // var btn2 = document.getElementById("btn");
+        //b.onclick = SeeRoute();
         b.style.display = "block";
-
         console.log(document.getElementById("bookBtn"+hotelId).value);
         console.log(hotelId);
         if(document.getElementById("bookBtn"+hotelId).value == "Booked")
@@ -258,33 +357,31 @@
             document.getElementById("bookParagraph").innerHTML = "You've already booked this hotel";
             var b = document.getElementById("closeBtn");
             b.style.display = "none";
+          //  b.onclick = CancelReservation();
             //alert("Already booked");
             return;
         }
         Ulong = UserLong;
         Ulat = UserLat;
-       /* var btn = document.getElementById('bookBtn');
-        btn.value = "Booked";*/
+        /* var btn = document.getElementById('bookBtn');
+         btn.value = "Booked";*/
         var nameH = "hotelName-" + hotelId;
         var descr = "hotelDescription-"+ hotelId;
         var longi = "hotelLongitude-"+ hotelId;
         var lati = "hotelLatitude-"+ hotelId;
         var hotelName = $("td[name=" +nameH + "]").text();
         nameHotel = hotelName;
-
         long = longitude;
         latit = latitude;
-
-        map.flyTo({
-            center: [long, latit],
-            zoom: 1
-        })
+        map.flyTo([latit, long], 6,               // to fly on the location
+            {
+                animate: true,                            // NOTE: in this map first goes latitude and then longitude
+                duration: 2
+            });
         var name = $("td[name=" + nameH + "]").text();
         var description = $("td[name=" + descr + "]").text();
         var latitude = $("td[name=" + longi + "]").text();
         var longitude = $("td[name=" + lati + "]").text();
-
-
         var reservation = {
             hotel:
                 {
@@ -295,11 +392,8 @@
                     id: userId
                 }
         };
-
         firstAjaxCall(reservation);
-       // secondAjaxCall();
-
-
+        // secondAjaxCall();
     }
     function firstAjaxCall(reservation)
     {
@@ -310,13 +404,11 @@
             data: JSON.stringify(reservation),
             success: function (msg) {
                 secondAjaxCall();
-
             },
             error: function (request, status, error) {
                 console.log("error");
             }
         });
-
     }
     function secondAjaxCall()
     {
@@ -325,202 +417,108 @@
             url: 'http://localhost:8081/save11',
             success: function (data) {
                 SetValues(data)
-
             },
             error: function (request, status, error) {
                 console.log("error");
             }
         });
-
     }
-
-
     // See route
     function SeeRoute()
     {
-      /*  var R = 6371e3; // metres
-        var φ1 = lat.toRadians();
-        var φ2 = Ulat.toRadians();
-        var Δφ = (Ulat-lat).toRadians();
-        var Δλ = (Ulong-long).toRadians();
-
-        var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
-            Math.cos(φ1) * Math.cos(φ2) *
-            Math.sin(Δλ/2) * Math.sin(Δλ/2);
-        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-
-        var d = R * c;
-
-        if(d < 10000)
-*/
-        var routee;
-        routee = "route" + Math.floor(Math.random()*100);
-        console.log(long);
-       // console.log(lat);
-        var rand = Math.floor(Math.random()*100);
-        var randString = rand.toString();
-        //var start = [18.417221, 43.858922];
-        var start = [long, latit];
-      //  var end = [18.417228, 43.858922];
-        var end = [Ulong, Ulat];
-        var directionsRequest = 'https://api.mapbox.com/directions/v5/mapbox/cycling/' + start[0] + ',' + start[1] + ';' + end[0] + ',' + end[1] + '?steps=true&geometries=geojson&access_token=' + mapboxgl.accessToken;
-        console.log("asdfg");
-        $.ajax({
-            method: 'GET',
-            url: directionsRequest,
-        }).done(function (data) {
-            var route = data.routes[0].geometry;
-            map.addLayer({
-                id: routee,
-                type: 'line',
-                source: {
-                    type: 'geojson',
-                    data: {
-                        type: 'Feature',
-                        geometry: route
-                    }
-                },
-                paint: {
-                    'line-width': 2
-                }
-            });
-            map.addLayer({
-                /* id: 'start',
-            type: 'circle',
-            source: {
-                type: 'geojson',
-                data: {
-                    type: 'Feature',
-                    geometry: {
-                        type: 'Point',
-                        coordinates: start
-                    },
-                    properties: {
-                        'marker-color': '#3bb2d0',
-                        'marker-size': 'large',
-                        'marker-symbol': 'rocket'
-                    }
-                },
-            }*/
-                "id": randString ,
-                "type": "symbol",
-                "source": {
-                    "type": "geojson",
-                    "data": {
-                        "type": "FeatureCollection",
-                        "features": [{
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": start
-                            },
-                            "properties": {
-                                "title": nameHotel,
-                                "icon": "airport"
-                            }
-                        }, {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": end
-                            },
-                            "properties": {
-                                "title": "Your location",
-                                "icon": "airport"
-                            }
-                        }]
-                    }
-                },
-                "layout": {
-                    "icon-image": "{icon}-15",
-                    "text-field": "{title}",
-                    "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-                    "text-offset": [0, 0.6],
-                    "text-anchor": "top"
-                }
-            });
-        });
-    }
-
-    // See location of a hotel
-    function BtnOnClick(longitude,latitude,UserLong, UserLat, hotelId)
-    {
-        var nameH = "hotelName-" + hotelId;
-        //  console.log(nameH);
-        var hotelName = $("td[name=" +nameH + "]").text();
-        console.log(hotelName);
-        clicked = 1;
-        var rand = Math.floor(Math.random()*100);
-        var randString = rand.toString();
-        long = longitude;
-        latit = latitude;
-
-
-        var geoUser = [];
-        var geoHotel = [];
-        var start = new L.LatLng(longitude, latitude);
-        console.log("start", start);
-
-        var end = new L.LatLng(UserLong,UserLat);
-        console.log("end", end);
-       // var randomColor = getRandomColor();
-        L.marker([UserLong, UserLat]).addTo(map);
-      //  var list = [start, end];
-       // var polyline = L.polyline(list, {color: "#911818"}).addTo(map);
-       // map.fitBounds(polyline.getBounds());
-       var point1 = {
-            "type": 'Feature',
-            "geometry": {
-                "type": 'Point',
-                "coordinates": start
-            },
-            "properties": {
-                'marker-color': "#1bb398",
-                'marker-size': 'large',
-                'marker-symbom': 'marker'
-            }
-        };
-        geoUser.push(point1);
-        var point2 = {
-            "type": 'Feature',
-            "geometry": {
-                "type": 'Point',
-                "coordinates": end
-            },
-            "properties": {
-                'icon': {
-                    'className': 'my-icon icon-dc',
-                    'html': '&#9733;',
-                    'iconSize': null
-                }
-            }
-        };
-        geoHotel.push(point2);
-        var layer1 = L.mapbox.featureLayer().addTo(map);
-        var layer2 = L.mapbox.featureLayer().setGeoJSON(geoUser).addTo(map);
-        layer2.setGeoJSON(geoUser);
-        console.log(latit);
-       L.map.flyTo([long,latit], 3, {duration:0.8});
-     // map.setCenter([long,latit]);
-     //   map.addLayer({
-            /* id: 'start',
-        type: 'circle',
-        source: {
-            type: 'geojson',
-            data: {
+        var routee = "route" + Math.floor(Math.random()*100);
+        var rand = Math.floor(Math.random() * 1000); // user for randString
+        var randString = rand.toString(); // not user here
+        var start = [long,latit];
+        var end = [Ulong,Ulat];
+        var userLatLong = new L.LatLng(latit,long);
+        var hotelLatLong = new L.LatLng(Ulat,Ulong);
+        var list = [userLatLong,hotelLatLong];
+        var polyline = L.polyline(list, {color: "#145879"}).addTo(map);
+        map.fitBounds(polyline.getBounds());
+        var myLayer = L.mapbox.featureLayer().addTo(map); // no idea
+        var geojson = {                                   // adding points on map(hotel and user)
+            type: 'FeatureCollection',
+            features: [{
                 type: 'Feature',
+                properties: {
+                    title: nameHotel,
+                    'marker-color': '#f86767',
+                    'marker-size': 'large',
+                    'marker-symbol': 'star'
+                },
                 geometry: {
                     type: 'Point',
                     coordinates: start
-                },
-                properties: {
-                    'marker-color': '#3bb2d0',
-                    'marker-size': 'large',
-                    'marker-symbol': 'rocket'
                 }
             },
-        }*/
-          /*  "id": randString ,
+                {
+                    type: 'Feature',
+                    properties: {
+                        title: "Your location",
+                        'marker-color': '#7ec9b1',
+                        'marker-size': 'large',
+                        'marker-symbol': 'star',
+                        url: 'http://en.wikipedia.org/wiki/Baltimore'
+                    },
+                    geometry: {
+                        type: 'Point',
+                        coordinates: end
+                    }
+                }]
+        };
+        myLayer.setGeoJSON(geojson);                  // no idea
+        myLayer.on('mouseover', function (e) {         // for mouseover
+            e.layer.openPopup();
+        });
+        myLayer.on('mouseout', function (e) {         // for mouseout
+            e.layer.closePopup();
+        });
+        map.flyTo([latit, long], 6,               // to fly on the location
+            {
+                animate: true,                            // NOTE: in this map first goes latitude and then longitude
+                duration: 2
+            });
+        /* var directionsRequest = 'https://api.mapbox.com/directions/v5/mapbox/cycling/' + start[0] + ',' + start[1] + ';' + end[0] + ',' + end[1] + '?steps=true&geometries=geojson&access_token=' + mapboxgl.accessToken;
+         console.log("asdfg");
+         $.ajax({
+             method: 'GET',
+             url: directionsRequest,
+         }).done(function (data) {
+             var route = data.routes[0].geometry;
+             map.addLayer({
+                 id: routee,
+                 type: 'line',
+                 source: {
+                     type: 'geojson',
+                     data: {
+                         type: 'Feature',
+                         geometry: route
+                     }
+                 },
+                 paint: {
+                     'line-width': 2
+                 }
+             });
+             map.addLayer({
+                 id: 'start',
+             type: 'circle',
+             source: {
+                 type: 'geojson',
+                 data: {
+                     type: 'Feature',
+                     geometry: {
+                         type: 'Point',
+                         coordinates: start
+                     },
+                     properties: {
+                         'marker-color': '#3bb2d0',
+                         'marker-size': 'large',
+                         'marker-symbol': 'rocket'
+                     }
+                 },
+             }*/
+        /*    "id": randString ,
             "type": "symbol",
             "source": {
                 "type": "geojson",
@@ -533,7 +531,7 @@
                             "coordinates": start
                         },
                         "properties": {
-                            "title": hotelName,
+                            "title": nameHotel,
                             "icon": "airport"
                         }
                     }, {
@@ -556,77 +554,48 @@
                 "text-offset": [0, 0.6],
                 "text-anchor": "top"
             }
-        });*/
-       /* map.flyTo({
-            center: [long, lat],
-            zoom: 6   // 22.5 is greater than the default maxZoom of 20
-        })*/
-        /*  console.log("abcd");
-          //var start = [18.417221, 43.858922];
-          var start = [longitude, latitude];
-        //  var end = [18.417228, 43.858922];
-          var directionsRequest = 'https://api.mapbox.com/directions/v5/mapbox/cycling/' + start[0] + ',' + start[1] + ';' + end[0] + ',' + end[1] + '?steps=true&geometries=geojson&access_token=' + mapboxgl.accessToken;
-          console.log("asdfg");
-          $.ajax({
-              method: 'GET',
-              url: directionsRequest,
-          }).done(function (data) {
-              var route = data.routes[0].geometry;
-              map.addLayer({
-                  id: 'route',
-                  type: 'line',
-                  source: {
-                      type: 'geojson',
-                      data: {
-                          type: 'Feature',
-                          geometry: route
-                      }
-                  },
-                  paint: {
-                      'line-width': 2
-                  }
-              });*/
-        /* map.addLayer({
-             id: 'start',
-             type: 'circle',
-             source: {
-                 type: 'geojson',
-                 data: {
-                     type: 'Feature',
-                     geometry: {
-                         type: 'Point',
-                         coordinates: start
-                     },
-                     properties: {
-                         'marker-color': '#3bb2d0',
-                         'marker-size': 'large',
-                         'marker-symbol': 'rocket'
-                     }
-                 },
-             }
-         });*/
-        /*  map.addLayer({
-              id: 'end',
-              type: 'circle',
-              source: {
-                  type: 'geojson',
-                  data: {
-                      type: 'Feature',
-                      geometry: {
-                          type: 'Point',
-                          coordinates: end
-                      }
-                  }
-              }
-          });
-      });*/
-// this is where the JavaScript from the next step will go
-        /*  var v = document.getElementById('cardId');
-          v.style.display = "none";
-          var mapa = document.getElementById('map');
-          mapa.style.display = "block";
-          mapa.style.width = "1000px";
-          mapa.style.height= "800px";*/
+        });
+    });*/
+    }
+    // See location of a hotel
+    function BtnOnClick(longitude,latitude,UserLong, UserLat, hotelId) {
+        var nameH = "hotelName-" + hotelId; // user for hotelName
+        var hotelName = $("td[name=" + nameH + "]").text(); // user to display hotel name on map
+        var rand = Math.floor(Math.random() * 1000); // user for randString
+        var randString = rand.toString(); // not user here
+        long = longitude; // setting global variables for SeeRoute
+        latit = latitude; // setting global variables for SeeRoute
+        var start = [longitude, latitude]; // location of hotel
+        var end = [UserLat, UserLong]; // location of user
+        var myLayer = L.mapbox.featureLayer().addTo(map); // no idea
+        var geojson = {                                   // adding points on map(hotel and user)
+            type: 'FeatureCollection',
+            features: [{
+                type: 'Feature',
+                properties: {
+                    title: hotelName,
+                    'marker-color': '#f86767',
+                    'marker-size': 'large',
+                    'marker-symbol': 'star'
+                },
+                geometry: {
+                    type: 'Point',
+                    coordinates: start
+                }
+            }]
+        };
+        myLayer.setGeoJSON(geojson);                  // no idea
+        myLayer.on('mouseover', function (e) {         // for mouseover
+            e.layer.openPopup();
+        });
+        myLayer.on('mouseout', function (e) {         // for mouseout
+            e.layer.closePopup();
+        });
+        map.flyTo([latitude, longitude], 6,               // to fly on the location
+            {
+                animate: true,                            // NOTE: in this map first goes latitude and then longitude
+                duration: 2
+            });
     }
     /*$(document).ready(function() {
         mapboxgl.accessToken = 'pk.eyJ1IjoiYW9tZXJvdmljIiwiYSI6ImNqanBnaG1oajA0ZjUzcHFkOGNsemF0YzAifQ.I4bEhIYDrJJCQE8QNAJCMA';
@@ -772,13 +741,6 @@
 // this is where the JavaScript from the next step will go
        });
    }*/
-    function getRandomColor() {
-        var letters = '0123456789ABCDEF';
-        var color = '#';
-        for (var i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
-    }
 </script>
 </body>
+</html>

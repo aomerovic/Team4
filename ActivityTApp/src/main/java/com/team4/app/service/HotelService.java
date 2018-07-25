@@ -25,4 +25,13 @@ public class HotelService {
     {
         return hotelsRepository.findById(id);
     }
+
+    public Optional<Hotel> findById(Long id) {
+        return hotelsRepository.findById(id);
+    }
+
+    public void delete(Hotel hotel) {
+        hotelsRepository.delete(hotel);
+    }
+
 }

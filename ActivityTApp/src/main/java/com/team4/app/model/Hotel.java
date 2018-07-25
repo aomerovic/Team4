@@ -26,15 +26,28 @@ public class Hotel {
     @Column(name = "latitude")
     private Double latitude;
 
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    @Column(name = "rating")
+    private int rating;
+
+
     public Hotel() {
 
     }
 
-    public Hotel(String hotelName, String hotelDescription, Double longitude, Double latitude) {
+    public Hotel(String hotelName, String hotelDescription, Double longitude, Double latitude, int rating) {
         this.hotelName = hotelName;
         this.hotelDescription = hotelDescription;
         this.longitude = longitude;
         this.latitude = latitude;
+        this.rating = rating;
     }
 
     public Long getId() {

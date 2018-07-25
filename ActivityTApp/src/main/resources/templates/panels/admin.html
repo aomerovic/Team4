@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+    <style>
+    </style>
+</head>
+
+<body>
+<div id="container">
+    <div class="topnav">
+        <p id="name">Travel Activity Tracker</p>
+        <form id="form-logout" class="logout-form" name="form-logout" th:action="@{/logout}" method="post">
+            <button type="submit" id="logout-button" class="btn btn-link logout-form-button" style="margin-top: 10px;">Logout</button>
+        </form>
+    </div>
+
+    <div class="container-fluid">
+        <br>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#users-tab" style="color: #333333;">Users</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#hotels-tab" style="color: #333333;">Hotels</a>
+            </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+
+            <div id="users-tab" class="container-fluid tab-pane active"><br>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div id="user-form-add">
+                            <form class="user-form" th:action="@{/user/add}" method="post" th:object="${user}">
+                                <div class="user-form-div">
+                                    <p>Add User</p>
+                                    <div class="alert alert-success div-msg" th:if="${successUserAdd}" th:text="${successUserAdd}"></div>
+                                    <div class="alert alert-danger div-msg" th:if="${errorUserAdd}" th:text="${errorUserAdd}"></div>
+                                    </br>
+                                    <input type="text" placeholder="First name" name="firstnameAdd" id="firstnameAdd" th:field="*{firstName}" required>
+                                    </br>
+                                    <input type="text" placeholder="Last name" name="lastnameAdd" id="lastnameAdd" th:field="*{lastName}" required>
+                                    </br>
+                                    <input type="text" placeholder="Email" name="emailAdd" id="emailAdd" th:field="*{email}" required>
+                                    </br>
+                                    <input type="text" placeholder="Longitude" name="user-longitudeAdd" id="user-longitudeAdd" th:field="*{longitude}" required>
+                                    </br>
+                                    <input type="text" placeholder="Latitude" name="user-latitudeAdd" id="user-latitudeAdd" th:field="*{latitude}" required>
+                                    </br>
+                                    <div class="clearfix">
+                                        <input class="login-button" type="submit" value="Add User">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div id="user-form-edit" style="display: none;">
+                            <form class="user-form" id="userFormEdit" th:action="@{/user/edit}" method="post" th:object="${user}">
+                                <div class="user-form-div">
+                                    <p>Edit User</p>
+                                    <div class="alert alert-success div-msg" th:if="${successUserEdit}" th:text="${successUserEdit}"></div>
+                                    <div class="alert alert-danger div-msg" th:if="${errorUserEdit}" th:text="${errorUserEdit}"></div>
+                                    </br>
+                                    <input type="text" placeholder="First name" name="firstnameEdit" id="firstnameEdit" th:field="*{firstName}" required>
+                                    </br>
+                                    <input type="text" placeholder="Last name" name="lastnameEdit" id="lastnameEdit" th:field="*{lastName}" required>
+                                    </br>
+                                    <input type="text" placeholder="Email" name="emailEdit" id="emailEdit" th:field="*{email}" required>
+                                    </br>
+                                    <input type="text" placeholder="Longitude" name="userlongitudeEdit" id="userlongitudeEdit" th:field="*{longitude}" required>
+                                    </br>
+                                    <input type="text" placeholder="Latitude" name="userlatitudeEdit" id="userlatitudeEdit" th:field="*{latitude}" required>
+                                    </br>
+                                    <div class="clearfix">
+                                        <input type="hidden" name="userIdEdit" id="userIdEdit" th:field="*{id}">
+                                        <input class="login-button" id="postEditBtn" type="submit" value="Save" style="width: 43.9%">
+                                        <input class="login-button" id="cancelUserEditBtn" type="button" value="Cancel" onclick="showUserForm(this);" style="background-color: #911818; width: 43.9%;">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="user-table-div">
+                            <div class="alert alert-success div-msg" th:if="${successUserDelete}" th:text="${successUserDelete}" style="margin-bottom:  10px;margin-left:  0;margin-right: 0;"></div>
+                            <div class="alert alert-danger div-msg" th:if="${errorUserDelete}" th:text="${errorUserDelete}" style="margin-bottom:  10px;margin-left:  0;margin-right: 0;"></div>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Firstname</th>
+                                        <th>Lastname</th>
+                                        <th>Username</th>
+                                        <th>Longitude</th>
+                                        <th>Latitude</th>
+                                        <th class="text-center" colspan="2">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="user : ${users}">
+                                        <td th:text="${user.getId()}">1</td>
+                                        <td th:text="${user.getFirstName()}">>Anna</td>
+                                        <td th:text="${user.getLastName()}">>Pitt</td>
+                                        <td th:text="${user.getUsername()}">>bla</td>
+                                        <td th:text="${user.getLongitude()}">>bla</td>
+                                        <td th:text="${user.getLatitude()}">>bla</td>
+                                        <td class="text-center"><button th:id="'edit-user-' + ${user.getId()}" class="btn btn-link table-edit-btn" th:onclick="'switchVisibleUserForm('+${user.getId()}+')'"><i class="fa fa-pencil"></i> Edit</button></td>
+                                        <!--<td class="text-center"><a th:href="@{'/user/edit/' + ${user.getId()}}"><i class="fa fa-pencil"></i> Edit</a></td>-->
+                                        <td class="text-center"><a th:href="@{'/user/delete/' + ${user.getId()}}"><i class="fa fa-remove"></i> Delete</a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="hotels-tab" class="container-fluid tab-pane fade"><br>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div id="hotel-form-add">
+                            <form class="user-form" th:action="@{/hotel/add}" method="post" th:object="${hotel}">
+                                <div class="user-form-div">
+                                    <p>Add Hotel</p>
+                                    </br>
+                                    <input type="text" placeholder="Hotel name" name="hotelnameAdd" id="hotelnameAdd" th:field="*{hotelName}" required>
+                                    </br>
+                                    <input type="text" placeholder="Description" name="descriptionAdd" id="descriptionAdd" th:field="*{hotelDescription}" required>
+                                    </br>
+                                    <input type="text" placeholder="Longitude" name="longitudeAdd" id="longitudeAdd" th:field="*{longitude}" required>
+                                    </br>
+                                    <input type="text" placeholder="Latitude" name="latitudeAdd" id="latitudeAdd" th:field="*{latitude}" required>
+                                    </br>
+                                    <div class="clearfix">
+                                        <input class="login-button" type="submit" value="Add Hotel">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div id="hotel-form-edit" style="display: none;">
+                            <form class="user-form" id="hotelEditForm" th:action="@{/hotel/edit}" method="post" th:object="${hotel}">
+                                <div class="user-form-div">
+                                    <p>Add Hotel</p>
+                                    </br>
+                                    <input type="text" placeholder="Hotel name" name="hotelnameEdit" id="hotelnameEdit" th:field="*{hotelName}" required>
+                                    </br>
+                                    <input type="text" placeholder="Description" name="descriptionEdit" id="descriptionEdit" th:field="*{hotelDescription}" required>
+                                    </br>
+                                    <input type="text" placeholder="Longitude" name="longitudeEdit" id="longitudeEdit" th:field="*{longitude}" required>
+                                    </br>
+                                    <input type="text" placeholder="Latitude" name="latitudeEdit" id="latitudeEdit" th:field="*{latitude}" required>
+                                    </br>
+                                    <div class="clearfix">
+                                        <input type="hidden" name="hotelIdEdit" id="hotelIdEdit" th:field="*{id}">
+                                        <input class="login-button" id="postEditHotelBtn" type="submit" value="Save" style="width: 43.9%">
+                                        <input class="login-button" id="cancelHotelEditBtn" type="button" value="Cancel" onclick="showHotelForm(this);" style="background-color: #911818; width: 43.9%;">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="user-table-div">
+                            <div class="alert alert-success div-msg" th:if="${successHotelMsg}" th:text="${successHotelMsg}" style="margin-bottom:  10px;margin-left:  0;margin-right: 0;"></div>
+                            <div class="alert alert-danger div-msg" th:if="${errorHotelMsg}" th:text="${errorHotelMsg}" style="margin-bottom:  10px;margin-left:  0;margin-right: 0;"></div>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Hotel</th>
+                                        <th>Description</th>
+                                        <th>Longitude</th>
+                                        <th>Latitude</th>
+                                        <th class="text-center" colspan="2">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="hotel : ${hotels}">
+                                        <td th:text="${hotel.getId()}">1</td>
+                                        <td th:text="${hotel.getHotelName()}">Hotel</td>
+                                        <td th:text="${hotel.getHotelDescription()}">Description</td>
+                                        <td th:text="${hotel.getLongitude()}">12.123</td>
+                                        <td th:text="${hotel.getLatitude()}">22.123</td>
+                                        <td class="text-center"><button th:id="'edit-hotel-' + ${hotel.getId()}" class="btn btn-link table-edit-btn" th:onclick="'switchVisibleHotelForm('+${hotel.getId()}+')'"><i class="fa fa-pencil"></i> Edit</button></td>
+                                        <td class="text-center"><a th:href="@{'/hotel/delete/' + ${hotel.getId()}}"><i class="fa fa-remove"></i> Delete</a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            localStorage.setItem('lastTab', $(this).attr('href'));
+        });
+        var lastTab = localStorage.getItem('lastTab');
+        if (lastTab) {
+            $('[href="' + lastTab + '"]').tab('show');
+        }
+    });
+    // specify the logout form only
+    $('form[name="form-logout"]').submit(function(){
+        localStorage.clear();
+        return true;
+    });
+    var prevEditBtnId;
+    var cancelBtnId = $('#cancelUserEditBtn');
+    function switchVisibleUserForm(id) {
+        if (document.getElementById('user-form-add')) {
+            if (prevEditBtnId) {
+                prevEditBtnId.style.display = 'inline-block';
+            }
+            var editBtnId = document.getElementById('edit-user-'+id);
+            editBtnId.style.display = 'none';
+            prevEditBtnId = editBtnId;
+            document.getElementById('user-form-add').style.display = 'none';
+            document.getElementById('user-form-edit').style.display = 'block';
+            $.get("/edit/user/" + id, function (user) {
+                var firstname = user.firstName;
+                var lastname = user.lastName;
+                var email = user.email;
+                var longitude = user.longitude;
+                var latitude = user.latitude;
+                $('input[id="firstnameEdit"]').val(firstname);
+                $('input[id="lastnameEdit"]').val(lastname);
+                $('input[id="emailEdit"]').val(email);
+                $('input[id="userlongitudeEdit"]').val(longitude);
+                $('input[id="userlatitudeEdit"]').val(latitude);
+                $('input[id="userIdEdit"]').val(id);
+                var newCancelBtnId = 'cancelUserEditBtn-' + id;
+                cancelBtnId.attr('id', newCancelBtnId);
+            });
+        }
+    }
+    function showUserForm(userEditCancelBtn) {
+        if (document.getElementById('user-form-edit')) {
+            if (document.getElementById('user-form-add').style.display == 'none') {
+                document.getElementById('user-form-add').style.display = 'block';
+                document.getElementById('user-form-edit').style.display = 'none';
+            }
+            else {
+                document.getElementById('user-form-add').style.display = 'none';
+                document.getElementById('user-form-edit').style.display = 'block';
+            }
+            if (userEditCancelBtn.id != 'cancelUserEditBtn') {
+                var arr = userEditCancelBtn.id.split('-');
+                var btnId = arr[1];
+                var editBtnId = document.getElementById('edit-user-'+btnId);
+                editBtnId.style.display = 'inline-block';
+                if (editBtnId.style.display == 'none'){
+                }
+            }
+        }
+    }
+    var prevHotelEditBtnId;
+    var cancelEditBtn = $('#cancelHotelEditBtn');
+    function switchVisibleHotelForm(id) {
+        if (document.getElementById('hotel-form-add')) {
+            if (prevHotelEditBtnId) {
+                prevHotelEditBtnId.style.display = 'inline-block';
+                console.log("here");
+            }
+            var editBtnId = document.getElementById('edit-hotel-'+id);
+            editBtnId.style.display = 'none';
+            prevHotelEditBtnId = editBtnId;
+            document.getElementById('hotel-form-add').style.display = 'none';
+            document.getElementById('hotel-form-edit').style.display = 'block';
+            $.get("/edit/hotel/" + id, function (hotel) {
+                $('input[id="hotelnameEdit"]').val(hotel.hotelName);
+                $('input[id="descriptionEdit"]').val(hotel.hotelDescription);
+                $('input[id="longitudeEdit"]').val(hotel.longitude);
+                $('input[id="latitudeEdit"]').val(hotel.latitude);
+                $('input[id="hotelIdEdit"]').val(id);
+                var newCancelBtnId = 'cancelHotelEditBtn-' + id;
+                cancelEditBtn.attr('id', newCancelBtnId);
+            });
+        }
+    }
+    function showHotelForm(hotelEditCancelBtn) {
+        if (document.getElementById('hotel-form-edit')) {
+            if (document.getElementById('hotel-form-add').style.display == 'none') {
+                document.getElementById('hotel-form-add').style.display = 'block';
+                document.getElementById('hotel-form-edit').style.display = 'none';
+            }
+            else {
+                document.getElementById('hotel-form-add').style.display = 'none';
+                document.getElementById('hotel-form-edit').style.display = 'block';
+            }
+            if (hotelEditCancelBtn.id != 'cancelHotelEditBtn') {
+                var arr = hotelEditCancelBtn.id.split('-');
+                var btnId = arr[1];
+                var editBtnId = document.getElementById('edit-hotel-'+btnId);
+                if (editBtnId.style.display == 'none'){
+                    editBtnId.style.display = 'inline-block';
+                }
+            }
+        }
+    }
+</script>
+
+</body>
+
+</html>

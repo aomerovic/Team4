@@ -13,6 +13,14 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     User findByUsername(String username);
 
+    User findByEmail(String email);
+
     @Query("SELECT DISTINCT u.role FROM User u")
     Set<String> findDistinctRole();
+
+    User findByPasswordResetToken(String passwordResetToken);
+
+    User findByConfirmAccountToken(String confirmAccountToken);
+
+    User findByReactivateAccountToken(String reactivateAccountToken);
 }

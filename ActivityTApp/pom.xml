@@ -72,10 +72,14 @@
             <artifactId>mapbox-java-services-rx</artifactId>
             <version>2.2.2</version>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.webjars.npm</groupId>-->
+            <!--<artifactId>jquery</artifactId>-->
+            <!--<version>3.1.0</version>-->
+        <!--</dependency>-->
         <dependency>
-            <groupId>org.webjars.npm</groupId>
-            <artifactId>jquery</artifactId>
-            <version>3.1.0</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
     </dependencies>
 

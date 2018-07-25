@@ -34,10 +34,13 @@ public class UsersController {
         return "/login";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String showLoginView() {
 
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String showLoginPage(Model model, @RequestParam(name = "error", required = false) String error){
+
+        if (error != null) {
+            model.addAttribute("errorMsg", error.replace('-', ' '));
+        }
         return "auth/login";
     }
-
 }

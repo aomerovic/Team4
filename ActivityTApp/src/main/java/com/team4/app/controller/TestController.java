@@ -34,12 +34,12 @@ public class TestController {
     }
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public void test() {
-        User user = new User("ROLE_USER", "John", "Doe", "johndoe", bCryptPasswordEncoder.encode("password123"), 12.174219, 17.068659);
-        Hotel hotel = new Hotel("Test_Hotel", "No description", 7.162866, 18.260039);
-        Reservation reservation = new Reservation(user,hotel);
-        usersService.save(user);
+        //User user = new User("ROLE_USER", "John", "Doe", "johndoe", bCryptPasswordEncoder.encode("password123"), 12.174219, 17.068659);
+        Hotel hotel = new Hotel("Hotel", "No description", 17.162866, 18.260039, 4);
+       // Reservation reservation = new Reservation(user,hotel);
+      //  usersService.save(user);
         hotelsService.save(hotel);
-        reservationsService.save(reservation);
+      //  reservationsService.save(reservation);
     }
 
     @RequestMapping(value = "/test-admin", method = RequestMethod.GET)
